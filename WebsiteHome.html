@@ -106,7 +106,12 @@
       justify-content: center;
       text-align: center;
       padding: 2rem;
+      /* Fade transition */
+      opacity: 1;
+      transition: opacity 0.4s;
     }
+    main.fade-out { opacity: 0; }
+    main.fade-in { opacity: 1; }
     h1 {
       font-weight: 650;
       margin: 0;
@@ -173,7 +178,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="content">
     <h1>Creating with Paper</h1>
     <p>Problems are the rails that let imagination gather speed.</p>
     <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
@@ -183,6 +188,7 @@
     // Language dropdown logic
     const toggle = document.getElementById('langToggle');
     const dropdown = document.getElementById('langDropdown');
+    const content = document.getElementById('content');
     const translations = {
       en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },  
       es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
@@ -190,20 +196,28 @@
       de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' }
     };
 
+    function swapLanguage(lang) {
+      // Fade out
+      content.classList.add('fade-out');
+      setTimeout(() => {
+        // Apply translations
+        document.documentElement.lang = lang;
+        document.querySelector('h1').textContent = translations[lang].title;
+        document.querySelector('p').textContent = translations[lang].desc;
+        document.querySelector('.start-btn').textContent = translations[lang].start;
+        // Fade in
+        content.classList.remove('fade-out');
+      }, 300);
+    }
+
     toggle.addEventListener('click', e => {
       e.stopPropagation(); dropdown.classList.toggle('open');
     });
     document.querySelectorAll('#langDropdown li').forEach(li => li.addEventListener('click', function() {
       const lang = this.dataset.lang;
       toggle.textContent = lang.toUpperCase() + ' ▾';
-      document.documentElement.lang = lang;
       dropdown.classList.remove('open');
-      // Apply translations
-      if (translations[lang]) {
-        document.querySelector('h1').textContent = translations[lang].title;
-        document.querySelector('p').textContent = translations[lang].desc;
-        document.querySelector('.start-btn').textContent = translations[lang].start;
-      }
+      swapLanguage(lang);
     }));
     document.addEventListener('click', () => dropdown.classList.remove('open'));
 
