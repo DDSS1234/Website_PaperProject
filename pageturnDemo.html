@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home – Language Pull‑Reveal (Right 1/8 ↓)</title>
+  <style>
+    :root {
+      --sheet-bg:#eeeeee;
+      --panel-bg:#2a2a2a;
+      --panel-text:#eeeeee;
+      --overlay-w:12.5vw;
+      --tab-h:34px;
+      --tear-w:16px;
+      --ease:cubic-bezier(.45,.03,.28,1);
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;background:var(--sheet-bg);font-family:system-ui,sans-serif;}
+    header{padding:1rem 2rem;border-bottom:1px solid #ccc;display:flex;justify-content:space-between;align-items:center;background:#fff;}
+
+    .lang-wrapper{
+      position:fixed;top:0;right:0;
+      width:var(--overlay-w);height:100vh;
+      z-index:1000;overflow:visible;
+    }
+    /* The sliding sheet overlay */
+    .sheet{
+      position:absolute;top:0;right:0;
+      width:var(--overlay-w);height:100%;
+      background:var(--sheet-bg);
+      box-shadow:-4px 0 8px rgba(0,0,0,.08);
+      transform:translateY(0);
+      transition:transform .6s var(--ease);
+      z-index:1080;
+    }
+    /* jagged left edge on the sheet */
+    .sheet::before{
+      content:'';
+      position:absolute;top:0;left:0;
+      width:var(--tear-w);height:100%;
+      background:var(--sheet-bg);
+      clip-path:polygon(
+        0 0, var(--tear-w) 8px,
+        0 16px, var(--tear-w) 24px,
+        0 32px, var(--tear-w) 40px,
+        0 48px, var(--tear-w) 56px,
+        0 64px, var(--tear-w) 72px,
+        0 100%
+      );
+      filter:drop-shadow(4px 0 4px rgba(0,0,0,0.2));
+      pointer-events:none;
+      z-index:1085;
+    }
+    .lang-wrapper.open .sheet{
+      transform:translateY(100%);
+    }
+    /* The dark panel revealed underneath */
+    .panel{
+      position:absolute;top:0;right:0;
+      width:var(--overlay-w);height:100%;
+      background:var(--panel-bg);color:var(--panel-text);
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      gap:1rem;padding-top:calc(var(--tab-h)+1rem);
+      z-index:1070;
+    }
+    .panel button{
+      background:none;border:1px solid var(--panel-text);
+      color:var(--panel-text);padding:0.45rem 0.9rem;
+      width:70%;font-size:0.85rem;cursor:pointer;
+      border-radius:3px;transition:background .2s;
+    }
+    .panel button:hover{background:rgba(255,255,255,0.12);}
+
+    /* Static pull-tab at the top edge of the slice */
+    .tab{
+      position:absolute;top:0;right:0;
+      width:var(--overlay-w);height:var(--tab-h);
+      display:flex;align-items:center;justify-content:center;
+      background:var(--sheet-bg);
+      border-bottom:1px solid rgba(0,0,0,.12);
+      color:#2a2a2a;font-weight:600;letter-spacing:.05em;
+      cursor:pointer;user-select:none;
+      z-index:1090;
+    }
+    /* Use data-lang for the label */
+    .tab::after{content:attr(data-lang);}
+
+    @media(prefers-reduced-motion:reduce){.sheet{transition:none;}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:0;font-size:1.25rem">PaperBrick Builder</h1>
+  </header>
+
+  <div class="lang-wrapper" id="langBox">
+    <!-- Sliding sheet -->
+    <div class="sheet" aria-hidden="true"></div>
+    <!-- Underlying dark panel with language buttons -->
+    <div class="panel" role="listbox">
+      <button class="lang-btn" data-lang="EN">EN</button>
+      <button class="lang-btn" data-lang="ES">ES</button>
+      <button class="lang-btn" data-lang="FR">FR</button>
+      <button class="lang-btn" data-lang="DE">DE</button>
+    </div>
+    <!-- Fixed tab label -->
+    <div class="tab" id="langToggle" data-lang="EN" title="Pull to change language"></div>
+  </div>
+
+  <main style="min-height:calc(100vh-80px);display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+    <p>Pull the top of the right-edge slice downward to reveal language options.</p>
+  </main>
+
+  <script>
+    const wrapper = document.getElementById('langBox');
+    const tab = document.getElementById('langToggle');
+    tab.addEventListener('click', ()=> wrapper.classList.toggle('open'));
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        tab.dataset.lang = btn.dataset.lang;
+        wrapper.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
