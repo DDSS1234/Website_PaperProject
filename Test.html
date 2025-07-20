@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PaperBrick Builder</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --panel-bg: #ffffff;
+      --text: #333333;
+      --stroke: #cccccc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    /* ---------- Reset & Layout ---------- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      display:flex;flex-direction:column;min-height:100vh;
+      opacity:1;transition:opacity .4s ease;
+    }
+    body.preload{opacity:0}
+    body.fade-out{opacity:0}
+
+    header{
+      padding:1rem 2rem;
+      border-bottom:1px solid var(--stroke);
+      background:var(--panel-bg);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .nav{
+      display:flex;align-items:center;background:none;border:none;padding:0;
+      cursor:pointer;color:var(--text);
+      transition:color .3s,filter .3s;
+    }
+    .nav svg{width:40px;height:40px;margin-right:.5rem}
+    .nav:hover{color:#eeeeee;filter:drop-shadow(0 2px 4px rgba(59,59,59,.8))}
+
+    /* ---------- Language Dropdown ---------- */
+    .controls{display:flex;align-items:center}
+    .lang-selector{position:relative;display:inline-block;margin-left:1rem}
+    .dropdown-toggle{
+      background:none;border:1px solid var(--text);
+      color:var(--text);font-size:.9rem;padding:.25rem .5rem;
+      border-radius:4px;cursor:pointer;transition:background .3s;
+    }
+    .dropdown-toggle:hover{background:var(--stroke)}
+
+    .lang-dropdown{
+      position:absolute;top:110%;left:0;
+      background:var(--panel-bg);border:1px solid var(--stroke);
+      list-style:none;margin:0;padding:0;min-width:4rem;border-radius:4px;
+      box-shadow:0 2px 4px rgba(0,0,0,.1);
+      transform-origin:top;transform:scaleY(0);
+      opacity:0;pointer-events:none;
+      transition:transform .25s ease-out,opacity .25s ease-out;
+      z-index:10;overflow:hidden;
+    }
+    .lang-dropdown.open{transform:scaleY(1);opacity:1;pointer-events:auto}
+    .lang-dropdown li{padding:.5rem 1rem;cursor:pointer;transition:background .2s}
+    .lang-dropdown li:hover{background:var(--stroke)}
+
+    /* ---------- Main ---------- */
+    main{flex:1;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;text-align:center;padding:2rem}
+    h1{font-weight:650;margin:0;text-transform:uppercase;letter-spacing:4px;
+      opacity:.8;text-shadow:0 0 4px #eeeeee}
+    p{max-width:64ch;margin-top:1rem;line-height:1.5}
+
+    .start-btn{
+      margin-top:2rem;padding:1rem 2.5rem;
+      border:2px solid var(--text);border-radius:4px;
+      background:var(--panel-bg);color:#eeeeee;
+      font-size:1rem;cursor:pointer;opacity:.8;
+      transition:background .2s,color .2s;
+    }
+    .start-btn:hover{background:var(--text);color:#eeeeee}
+    .start-btn:active{background:#eeeeee;color:var(--text)}
+
+    @media(prefers-color-scheme:dark){
+      :root{--bg:#2a2a2a;--panel-bg:#2a2a2a;--text:#eeeeee;--stroke:#2a2a2a}
+    }
+  </style>
+</head>
+<body class="preload">
+  <header>
+    <button class="nav" id="homeBtn" title="Go back to home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m1 10 C1 0 21 9 23 10 C21 11 1 20 1 10"/>
+        <circle cx="8" cy="10" r="4"/>
+        <circle cx="8" cy="10" r="1"/>
+        <circle cx="8" cy="10" r="0.5"/>
+      </svg>
+    </button>
+    <div class="controls">
+      <div class="lang-selector">
+        <button id="langToggle" class="dropdown-toggle" title="Toggle language">EN ▾</button>
+        <ul id="langDropdown" class="lang-dropdown">
+          <li data-lang="en">EN</li>
+          <li data-lang="es">ES</li>
+          <li data-lang="fr">FR</li>
+          <li data-lang="de">DE</li>
+          <li data-lang="ru">RU</li>
+          <li data-lang="zh">中文</li>
+          <li data-lang="ja">日本語</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <h1>Creating with Paper</h1>
+    <p>Problems are the rails that let imagination gather speed.</p>
+    <button class="start-btn" id="startBtn"><strong>Start Building</strong></button>
+  </main>
+
+  <script>
+    /* -------- Fade in / out between pages -------- */
+    window.addEventListener('DOMContentLoaded',()=>document.body.classList.remove('preload'));
+    function navigateWithFade(target){
+      document.body.classList.add('fade-out');
+      setTimeout(()=>window.location.href=target,400);
+    }
+    document.getElementById('startBtn').addEventListener('click',()=>navigateWithFade('instructions.html'));
+    document.getElementById('homeBtn').addEventListener('click',()=>navigateWithFade('WebsiteHome.html'));
+
+    /* -------- Dropdown behaviour -------- */
+    const toggle=document.getElementById('langToggle');
+    const dropdown=document.getElementById('langDropdown');
+    toggle.addEventListener('click',e=>{e.stopPropagation();dropdown.classList.toggle('open')});
+    document.addEventListener('click',()=>dropdown.classList.remove('open'));
+
+    /* -------- Simple i18n strings -------- */
+    const strings={
+      en:{title:'Creating with Paper',desc:'Problems are the rails that let imagination gather speed.',start:'Start Building'},
+      es:{title:'Crear con Papel',desc:'Los problemas son los rieles que permiten que la imaginación gane velocidad.',start:'Comenzar'},
+      fr:{title:'Créer avec du Papier',desc:'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.',start:'Commencer'},
+      de:{title:'Herstellen mit Papier',desc:'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.',start:'Loslegen'},
+      ru:{title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
+      zh:{title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
+      ja:{title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
+    };
+
+    document.querySelectorAll('#langDropdown li').forEach(li=>li.addEventListener('click',function(){
+      const lang=this.dataset.lang;
+      toggle.textContent=(lang==='zh'?'中文':lang==='ja'?'日本語':lang.toUpperCase())+' ▾';
+      dropdown.classList.remove('open');
+      document.documentElement.lang=lang;
+      const t=strings[lang];
+      document.querySelector('h1').textContent=t.title;
+      document.querySelector('p').textContent=t.desc;
+      document.querySelector('.start-btn').textContent=t.start;
+    }));
+  </script>
+</body>
+</html>

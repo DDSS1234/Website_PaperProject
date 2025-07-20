@@ -167,9 +167,11 @@
           <li data-lang="es">ES</li>
           <li data-lang="fr">FR</li>
           <li data-lang="de">DE</li>
+          <li data-lang="ru">DE</li>
+          <li data-lang="zh">DE</li>
+          <li data-lang="ja">DE</li>
         </ul>
       </div>
-      <button id="unitToggle" title="Toggle units">Imperial</button>
     </div>
   </header>
 
@@ -189,6 +191,9 @@
       es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
       fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
       de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' }
+      ru:{title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
+      zh:{title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
+      ja:{title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
     };
 
     function swapLanguage(lang) {
@@ -215,11 +220,6 @@
       swapLanguage(lang);
     }));
     document.addEventListener('click', () => dropdown.classList.remove('open'));
-
-    // Unit toggle stub
-    document.getElementById('unitToggle').addEventListener('click', function () {
-      this.textContent = this.textContent === 'Imperial' ? 'Metric' : 'Imperial';
-    });
   </script>
 </body>
 </html>
