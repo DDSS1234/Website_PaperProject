@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PaperBrick Builder – Instructions</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --panel-bg: #ffffff;
+      --text: #333333;
+      --stroke: #cccccc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                   'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+                   'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #2a2a2a;
+        --panel-bg: #2a2a2a;
+        --text: #eeeeee;
+        --stroke: #2a2a2a;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--stroke);
+      background: var(--panel-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .nav {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--text);
+      transition: filter 0.3s;
+    }
+    header .nav svg {
+      width: 40px;
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+    header .nav:hover {
+      filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Container that will switch between column (center) and row (side by side) */
+    .instructions-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      max-width: 90vw;
+      margin: auto;
+    }
+    .instructions-container.horizontal {
+      flex-direction: row;
+      justify-content: center;
+    }
+    .image-wrapper {
+      position: relative;
+    }
+    /* Step number, positioned just to the left of the image */
+    .step-number {
+      position: absolute;
+      top: 1rem;
+      left: -2.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--text);
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--stroke);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="nav" onclick="location.href='index.html'" title="Go back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 10 C1 0 21 9 23 10 C21 11 1 20 1 10"/>
+        <circle cx="8" cy="10" r="4"/>
+        <circle cx="8" cy="10" r="1"/>
+        <circle cx="8" cy="10" r="0.5"/>
+      </svg>
+      <span>Home</span>
+    </button>
+  </header>
+
+  <main>
+    <div id="instructions" class="instructions-container">
+      <!-- number overlay -->
+      <div class="step-number">1</div>
+      <!-- full instruction sheet -->
+      <div class="image-wrapper">
+        <img id="instructions-img"
+             src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png"
+             alt="Step-by-step building instructions">
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Once image has loaded, decide layout based on its aspect ratio
+    const img = document.getElementById('instructions-img');
+    img.addEventListener('load', () => {
+      const container = document.getElementById('instructions');
+      if (img.naturalWidth > img.naturalHeight) {
+        container.classList.add('horizontal');
+      }
+    });
+  </script>
+</body>
+</html>
