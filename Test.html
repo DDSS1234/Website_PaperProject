@@ -12,88 +12,148 @@
       --stroke: #cccccc;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
+        /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
 
-    /* ---------- Reset & Layout ---------- */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-
-    body{
-      background:var(--bg);
-      color:var(--text);
-      display:flex;flex-direction:column;min-height:100vh;
-      opacity:1;transition:opacity .4s ease;
+    /* Page fade transition */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      opacity: 1;
+      transition: opacity 0.4s;
     }
-    body.preload{opacity:0}
-    body.fade-out{opacity:0}
+    body.preload { opacity: 0; }
+    body.fade-out { opacity: 0; }
 
-    header{
-      padding:1rem 2rem;
-      border-bottom:1px solid var(--stroke);
-      background:var(--panel-bg);
-      display:flex;justify-content:space-between;align-items:center;
+    header {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--stroke);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel-bg);
     }
-    .nav{
-      display:flex;align-items:center;background:none;border:none;padding:0;
-      cursor:pointer;color:var(--text);
-      transition:color .3s,filter .3s;
+    .nav {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      color: var(--text);
+      transition: background 0.5s, color 0.5s;
     }
-    .nav svg{width:40px;height:40px;margin-right:.5rem}
-    .nav:hover{color:#eeeeee;filter:drop-shadow(0 2px 4px rgba(59,59,59,.8))}
+    .nav svg { width: 40px; height: 40px; margin-right: 0.5rem; }
+    .nav:hover { color: #eeeeee; filter: drop-shadow(0 0px 1px rgba(59, 59, 59, 0.8)); }
 
-    /* ---------- Language Dropdown ---------- */
-    .controls{display:flex;align-items:center}
-    .lang-selector{position:relative;display:inline-block;margin-left:1rem}
-    .dropdown-toggle{
-      background:none;border:1px solid var(--text);
-      color:var(--text);font-size:.9rem;padding:.25rem .5rem;
-      border-radius:4px;cursor:pointer;transition:background .3s;
+    /* Language dropdown */
+    .lang-selector { position: relative; display: inline-block; margin-left: 1rem; }
+    .dropdown-toggle {
+      background: none;
+      border: 1px solid var(--text);
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.3s;
     }
-    .dropdown-toggle:hover{background:var(--stroke)}
-
-    .lang-dropdown{
-      position:absolute;top:110%;left:0;
-      background:var(--panel-bg);border:1px solid var(--stroke);
-      list-style:none;margin:0;padding:0;min-width:4rem;border-radius:4px;
-      box-shadow:0 2px 4px rgba(0,0,0,.1);
-      transform-origin:top;transform:scaleY(0);
-      opacity:0;pointer-events:none;
-      transition:transform .25s ease-out,opacity .25s ease-out;
-      z-index:10;overflow:hidden;
+    .dropdown-toggle:hover {
+      background: var(--stroke);
     }
-    .lang-dropdown.open{transform:scaleY(1);opacity:1;pointer-events:auto}
-    .lang-dropdown li{padding:.5rem 1rem;cursor:pointer;transition:background .2s}
-    .lang-dropdown li:hover{background:var(--stroke)}
-
-    /* ---------- Main ---------- */
-    main{flex:1;display:flex;flex-direction:column;align-items:center;
-      justify-content:center;text-align:center;padding:2rem}
-    h1{font-weight:650;margin:0;text-transform:uppercase;letter-spacing:4px;
-      opacity:.8;text-shadow:0 0 4px #eeeeee}
-    p{max-width:64ch;margin-top:1rem;line-height:1.5}
-
-    .start-btn{
-      margin-top:2rem;padding:1rem 2.5rem;
-      border:2px solid var(--text);border-radius:4px;
-      background:var(--panel-bg);color:#eeeeee;
-      font-size:1rem;cursor:pointer;opacity:.8;
-      transition:background .2s,color .2s;
+    .lang-dropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: var(--panel-bg);
+      border: 1px solid var(--stroke);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none;
+      min-width: 4rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 10;
+      border-radius: 4px;
     }
-    .start-btn:hover{background:var(--text);color:#eeeeee}
-    .start-btn:active{background:#eeeeee;color:var(--text)}
-
-    @media(prefers-color-scheme:dark){
-      :root{--bg:#2a2a2a;--panel-bg:#2a2a2a;--text:#eeeeee;--stroke:#2a2a2a}
+    .lang-dropdown.open { display: block; }
+    .lang-dropdown li {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lang-dropdown li:hover {
+      background: var(--stroke);
+    }
+    .controls button {
+      background: none;
+      border: none;
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      /* Fade transition */
+      opacity: 1;
+      transition: opacity 0.4s;
+    }
+    main.fade-out { opacity: 0; }
+    main.fade-in { opacity: 1; }
+    h1 {
+      font-weight: 650;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      opacity: 0.8;
+      text-shadow: 0px 0px 4px #eeeeee;
+    }
+    p {
+      max-width: 64ch;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    .start-btn {
+      margin-top: 2rem;
+      padding: 1rem 2.5rem;
+      border: 2px solid var(--text);
+      background: var(--panel-bg);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 4px;
+      opacity: 0.8;
+    }
+    .start-btn:hover {
+      background: var(--text);
+      color: #eeeeee;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #eeeeee;
+        --panel-bg: #eeeeee;
+        --text: #2a2a2a;
+        --stroke: #eeeeee;
+      }
     }
   </style>
 </head>
-<body class="preload">
+<body>
   <header>
-    <button class="nav" id="homeBtn" title="Go back to home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m1 10 C1 0 21 9 23 10 C21 11 1 20 1 10"/>
-        <circle cx="8" cy="10" r="4"/>
-        <circle cx="8" cy="10" r="1"/>
-        <circle cx="8" cy="10" r="0.5"/>
+    <button class="nav" onclick="location.href='index.html'" title="Go back to home">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 6 30 c 7 -1 29 -0.5 36 1 M 6 24 c 8 0.5 29 0 36 -1 M 6 18 c 7 1 29 0 36 -1" />
       </svg>
     </button>
     <div class="controls">
@@ -105,8 +165,8 @@
           <li data-lang="fr">FR</li>
           <li data-lang="de">DE</li>
           <li data-lang="ru">RU</li>
-          <li data-lang="zh">中文</li>
-          <li data-lang="ja">日本語</li>
+          <li data-lang="zh">ZH</li>
+          <li data-lang="ja">JA</li>
         </ul>
       </div>
     </div>
@@ -115,46 +175,48 @@
   <main id="content">
     <h1>Creating with Paper</h1>
     <p>Problems are the rails that let imagination gather speed.</p>
-    <button class="start-btn" id="startBtn"><strong>Start Building</strong></button>
+    <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
   </main>
 
   <script>
-    /* -------- Fade in / out between pages -------- */
-    window.addEventListener('DOMContentLoaded',()=>document.body.classList.remove('preload'));
-    function navigateWithFade(target){
-      document.body.classList.add('fade-out');
-      setTimeout(()=>window.location.href=target,400);
-    }
-    document.getElementById('startBtn').addEventListener('click',()=>navigateWithFade('instructions.html'));
-    document.getElementById('homeBtn').addEventListener('click',()=>navigateWithFade('WebsiteHome.html'));
-
-    /* -------- Dropdown behaviour -------- */
-    const toggle=document.getElementById('langToggle');
-    const dropdown=document.getElementById('langDropdown');
-    toggle.addEventListener('click',e=>{e.stopPropagation();dropdown.classList.toggle('open')});
-    document.addEventListener('click',()=>dropdown.classList.remove('open'));
-
-    /* -------- Simple i18n strings -------- */
-    const strings={
-      en:{title:'Creating with Paper',desc:'Problems are the rails that let imagination gather speed.',start:'Start Building'},
-      es:{title:'Crear con Papel',desc:'Los problemas son los rieles que permiten que la imaginación gane velocidad.',start:'Comenzar'},
-      fr:{title:'Créer avec du Papier',desc:'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.',start:'Commencer'},
-      de:{title:'Herstellen mit Papier',desc:'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.',start:'Loslegen'},
-      ru:{title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
-      zh:{title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
-      ja:{title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
+    // Language dropdown logic
+    const toggle = document.getElementById('langToggle');
+    const dropdown = document.getElementById('langDropdown');
+    const content = document.getElementById('content');
+    const translations = {
+      en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },  
+      es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
+      fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
+      de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' },
+      ru: {title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
+      zh: {title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
+      ja: {title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
     };
 
-    document.querySelectorAll('#langDropdown li').forEach(li=>li.addEventListener('click',function(){
-      const lang=this.dataset.lang;
-      toggle.textContent=(lang==='zh'?'中文':lang==='ja'?'日本語':lang.toUpperCase())+' ▾';
+    function swapLanguage(lang) {
+      // Fade out
+      content.classList.add('fade-out');
+      setTimeout(() => {
+        // Apply translations
+        document.documentElement.lang = lang;
+        document.querySelector('h1').textContent = translations[lang].title;
+        document.querySelector('p').textContent = translations[lang].desc;
+        document.querySelector('.start-btn').textContent = translations[lang].start;
+        // Fade in
+        content.classList.remove('fade-out');
+      }, 300);
+    }
+
+    toggle.addEventListener('click', e => {
+      e.stopPropagation(); dropdown.classList.toggle('open');
+    });
+    document.querySelectorAll('#langDropdown li').forEach(li => li.addEventListener('click', function() {
+      const lang = this.dataset.lang;
+      toggle.textContent = lang.toUpperCase() + ' ▾';
       dropdown.classList.remove('open');
-      document.documentElement.lang=lang;
-      const t=strings[lang];
-      document.querySelector('h1').textContent=t.title;
-      document.querySelector('p').textContent=t.desc;
-      document.querySelector('.start-btn').textContent=t.start;
+      swapLanguage(lang);
     }));
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
   </script>
 </body>
 </html>

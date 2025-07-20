@@ -48,7 +48,7 @@
       transition: background 0.5s, color 0.5s;
     }
     .nav svg { width: 40px; height: 40px; margin-right: 0.5rem; }
-    .nav:hover { color: #eeeeee; filter: drop-shadow(0 0px 2px rgba(59, 59, 59, 0.8)); }
+    .nav:hover { color: #eeeeee; filter: drop-shadow(0 0px 1px rgba(59, 59, 59, 0.8)); }
 
     /* Language dropdown */
     .lang-selector { position: relative; display: inline-block; margin-left: 1rem; }
@@ -153,10 +153,7 @@
   <header>
     <button class="nav" onclick="location.href='index.html'" title="Go back to home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m 1 10 C 1 0 21 9 23 10 C 21 11 1 20 1 10" />
-        <circle cx="8" cy="10" r="4" />
-        <circle cx="8" cy="10" r="1" />
-        <circle cx="8" cy="10" r="0.5" />
+        <path d="M 1 11 Q 6 6 11 11 Q 16 16 21 11 M 1 13 Q 6 9 11 13 Q 16 18 21 13" />
       </svg>
     </button>
     <div class="controls">
@@ -167,9 +164,9 @@
           <li data-lang="es">ES</li>
           <li data-lang="fr">FR</li>
           <li data-lang="de">DE</li>
-          <li data-lang="ru">DE</li>
-          <li data-lang="zh">DE</li>
-          <li data-lang="ja">DE</li>
+          <li data-lang="ru">RU</li>
+          <li data-lang="zh">ZH</li>
+          <li data-lang="ja">JA</li>
         </ul>
       </div>
     </div>
@@ -190,10 +187,10 @@
       en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },  
       es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
       fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
-      de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' }
-      ru:{title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
-      zh:{title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
-      ja:{title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
+      de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' },
+      ru: {title:'Творчество с бумагой',desc:'Проблемы — это рельсы, по которым ускоряется воображение.',start:'Начать'},
+      zh: {title:'纸的创作',desc:'问题是让想象力加速的轨道。',start:'开始'},
+      ja: {title:'紙でつくる',desc:'問題は想像力を加速させるレールです。',start:'始める'}
     };
 
     function swapLanguage(lang) {
