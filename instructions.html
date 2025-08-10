@@ -124,6 +124,19 @@
   
   const container = document.querySelector('.instructions-container');
   const progressBar = document.querySelector('.progress-bar');
+    const steps = document.querySelectorAll('.step');
+  let isWheelScrolling = false;
+
+  container.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (isWheelScrolling) return;
+    isWheelScrolling = true;
+    const direction = Math.sign(e.deltaY);
+    const nextIndex = Math.round(container.scrollTop / container.clientHeight) + direction;
+    const targetIndex = Math.max(0, Math.min(nextIndex, steps.length - 1));
+    container.scrollTo({ top: targetIndex * container.clientHeight, behavior: 'smooth' });
+    setTimeout(() => { isWheelScrolling = false; }, 500);
+  }, { passive: false });
 
   function updateProgress() {
     const max = container.scrollHeight - container.clientHeight;
