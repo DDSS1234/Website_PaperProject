@@ -49,15 +49,15 @@
     .burger path {
       fill: none;
       stroke: var(--text);
-      stroke-width: 2;
+      stroke-width: 1;
       stroke-linecap: round;
-      transition: transform .28s var(--ease), opacity .2s var(--ease), stroke .28s var(--ease);
+      transition: transform .4s var(--ease), opacity .2s var(--ease), stroke .28s var(--ease);
       transform-origin: 12px 12px;
     }
 
     /* hover expands lines to form square */
-    .menu-btn:not([aria-expanded="true"]):hover .l1 { transform: translateY(-6px); }
-    .menu-btn:not([aria-expanded="true"]):hover .l2 { transform: translateY(6px); }
+    .menu-btn:not([aria-expanded="true"]):hover .l1 { transform: translateY(-4px); }
+    .menu-btn:not([aria-expanded="true"]):hover .l2 { transform: translateY(4px); }
 
     /* active (X) */
     .menu-btn[aria-expanded="true"] .l1 { transform: translateY(2px) rotate(45deg); }
@@ -79,7 +79,7 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(-100%);
-      transition: transform .4s var(--ease), opacity .25s var(--ease);
+      transition: transform 1s var(--ease), opacity .25s var(--ease);
       z-index: 1000;
     }
 
