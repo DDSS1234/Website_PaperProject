@@ -60,20 +60,32 @@
     }
     .lang-dropdown {
       position: absolute;
-      top: 110%;
+      top: 100%;
       left: 0;
       background: var(--panel-bg);
       border: 1px solid var(--stroke);
       list-style: none;
       margin: 0;
       padding: 0;
-      display: none;
       min-width: 4rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       z-index: 10;
       border-radius: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      pointer-events: none;
     }
-    .lang-dropdown.open { display: block; }
+    .lang-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    }
+    .lang-dropdown.open {
+      visibility: visible;
+      opacity: 1;
+    }
     .lang-dropdown li {
       padding: 0.5rem 1rem;
       cursor: pointer;
