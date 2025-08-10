@@ -24,6 +24,8 @@
     </ul>
   </nav>
 
+  <div class="progress"><div class="progress-bar"></div></div>
+
   <main class="instructions-main">
     <div class="instructions-container">
       <div class="step">
@@ -119,6 +121,25 @@
   menu.addEventListener('click', (e) => {
     if (e.target === menu) setOpen(false);
   });
+  
+  const container = document.querySelector('.instructions-container');
+  const progressBar = document.querySelector('.progress-bar');
+
+  function updateProgress() {
+    const max = container.scrollHeight - container.clientHeight;
+    const percent = max ? container.scrollTop / max : 0;
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      progressBar.style.height = `${percent * 100}%`;
+      progressBar.style.width = '100%';
+    } else {
+      progressBar.style.width = `${percent * 100}%`;
+      progressBar.style.height = '100%';
+    }
+  }
+
+  container.addEventListener('scroll', updateProgress);
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
 </script>
 </body>
 </html>
