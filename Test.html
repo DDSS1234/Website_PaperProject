@@ -7,38 +7,80 @@
    <link rel="stylesheet" href="style.css">
  </head>
  <body>
-   <header>
-     <button class="nav" onclick="location.href='index.html'" title="Go back to home">
-       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.85">
-         <path d="M3 10h16 M3 14h16" />
-       </svg>
-     </button>
-     <div class="controls">
-       <div class="lang-selector" id="langBox">
-        <button id="langToggle" class="dropdown-toggle">EN</button>
-        <ul id="langDropdown" class="lang-dropdown">
-           <li data-lang="en">EN</li>
-           <li data-lang="es">ES</li>
-           <li data-lang="fr">FR</li>
-           <li data-lang="de">DE</li>
-           <li data-lang="ru">RU</li>
-           <li data-lang="zh">ZH</li>
-           <li data-lang="ja">JA</li>
-         </ul>
-       </div>
-     </div>
-   </header>
+     <header>
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" class="menu-btn">
+      <svg viewBox="0 0 24 24" width="28" height="28" class="burger">
+        <path class="l1" d="M3 10h16" />
+        <path class="l2" d="M3 14h16" />
+      </svg>
+    </button>
+    <div class="controls">
+      <div class="lang-selector" id="langBox">
+       <button id="langToggle" class="dropdown-toggle">EN</button>
+       <ul id="langDropdown" class="lang-dropdown">
+          <li data-lang="en">EN</li>
+          <li data-lang="es">ES</li>
+          <li data-lang="fr">FR</li>
+          <li data-lang="de">DE</li>
+          <li data-lang="ru">RU</li>
+          <li data-lang="zh">ZH</li>
+          <li data-lang="ja">JA</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Full-viewport overlay menu -->
+  <nav id="siteMenu" class="menu" hidden>
+    <ul>
+      <li><a href="Test.html">Home</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="instructions.html">Instructions</a></li>
+      <li><a href="pageturnDemo.html">Page Turn Demo</a></li>
+    </ul>
+  </nav>
  
    <main id="content">
      <h1>Creating with Paper</h1>
      <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
    </main>
  
-   <script>
-     const toggle = document.getElementById('langToggle');
-     const dropdown = document.getElementById('langDropdown');
-     const content = document.getElementById('content');
-     const translations = {
+<script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('siteMenu');
+
+    function setOpen(isOpen) {
+      btn.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        menu.hidden = false;
+        menu.dataset.open = 'true';
+        document.documentElement.classList.add('menu-open');
+        document.body.classList.add('menu-open');
+      } else {
+        menu.dataset.open = 'false';
+        document.documentElement.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
+        setTimeout(() => { menu.hidden = true; }, 250);
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      setOpen(!open);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
+    });
+
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) setOpen(false);
+    });
+
+    const toggle = document.getElementById('langToggle');
+    const dropdown = document.getElementById('langDropdown');
+    const content = document.getElementById('content');
+    const translations = {
        en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },
        es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
        fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
