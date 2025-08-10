@@ -1,34 +1,26 @@
 // Floating cellulose-like hexagons
 (function(){
-  const SIDE = 15; // side length of hexagon
-  const WIDTH = SIDE * 2;
-  const HEIGHT = Math.sqrt(3) * SIDE;
+  const WIDTH = 50;
+  const HEIGHT = 50;
   const NUM_HEX = 75;
   const DECAY = 0.95; // rate at which extra motion/rotation fades
   const groups = [];
   const mouse = { x: 0, y: 0, active: false };
+  const PATH_D = "M11.65,18.49,21.04,2.48h-8.16l-4.08,7.07,4.08,7.07h8.16l4.08-7.07-4.08-7.07ZM24.88,26.32,34.27,10.31h-8.16l-4.08,7.07,4.08,7.07h8.16l4.08-7.07-4.08-7.07ZM40.38.03h-3.81l-1.9,3.3,1.9,3.3h3.81l1.9-3.3L40.38.03ZM48,14.99h-2.7l-1.35,2.34,1.35,2.34h2.7l1.35-2.34-1.35-2.34ZM10.93,19.66h-2.89l-1.44,2.5,1.44,2.5h2.89l1.44-2.5-1.44-2.5ZM12.84,16.56l-1.91,3.1M34.27,24.45l2.41,4.09M43.95,17.33h-5.67M36.57,6.62l-2.3,3.69M27.12,11.49h6.62M33.69,23.01l3.43-5.63M23.75,17.38l3.37,5.76M13.44,15.64h6.81M10.15,9.21l3.19-5.49M23.75,9.23l-3.38-5.71";
 
   function createHex(x, y) {
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('width', WIDTH);
     svg.setAttribute('height', HEIGHT);
-    svg.setAttribute('viewBox', `0 0 ${WIDTH} ${HEIGHT}`);
-    const poly = document.createElementNS(svgNS, 'polygon');
-    const points = [
-      [SIDE / 2, 0],
-      [1.5 * SIDE, 0],
-      [2 * SIDE, HEIGHT / 2],
-      [1.5 * SIDE, HEIGHT],
-      [SIDE / 2, HEIGHT],
-      [0, HEIGHT / 2]
-    ].map(p => p.join(',')).join(' ');
-    poly.setAttribute('points', points);
-    poly.setAttribute('stroke', '#2a2a2a');
-    poly.setAttribute('stroke-width', '1');
-    poly.setAttribute('fill', 'none');
-    poly.setAttribute('opacity', '0.2');
-    svg.appendChild(poly);
+    svg.setAttribute('viewBox', '0 0 50 50');
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', PATH_D);
+    path.setAttribute('stroke', '#2a2a2a');
+    path.setAttribute('stroke-width', '1');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.2');
+    svg.appendChild(path);
     svg.style.position = 'absolute';
     svg.style.transformOrigin = 'center';
     svg.style.transform = `translate(${x}px, ${y}px)`;

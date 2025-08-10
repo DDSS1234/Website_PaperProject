@@ -62,6 +62,7 @@
     /* active (X) */
     .menu-btn[aria-expanded="true"] .l1 { transform: translateY(2px) rotate(45deg); }
     .menu-btn[aria-expanded="true"] .l2 { transform: translateY(-2px) rotate(-45deg); }
+    .menu-btn[aria-expanded="true"] .burger path { stroke: var(--panel-bg); }
 
     @media (prefers-reduced-motion: reduce) {
       .burger path { transition: none; }
