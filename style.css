@@ -229,3 +229,77 @@
       z-index: 0;
     }
     header, main { position: relative; z-index: 1; }
+
+    /* Instructions page */
+    main.instructions-main {
+      padding: 0;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+
+    .instructions-container {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+
+    .step {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      scroll-snap-align: start;
+    }
+
+    .step-title {
+      position: absolute;
+      top: 1rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .step img {
+      max-width: 60%;
+      height: auto;
+      border: 1px solid var(--stroke);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .step-description {
+      position: absolute;
+      bottom: 1rem;
+      max-width: 80%;
+    }
+
+    @media (min-width: 768px) {
+      .instructions-container {
+        height: auto;
+        overflow: visible;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        scroll-snap-type: none;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .step {
+        width: 45%;
+        min-height: auto;
+        height: auto;
+        margin: 1rem;
+      }
+
+      .step-title,
+      .step-description {
+        position: static;
+        margin: 0.5rem 0;
+      }
+
+      .step img {
+        max-width: 100%;
+      }
+    }

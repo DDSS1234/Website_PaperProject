@@ -4,132 +4,121 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Creating with Paper – Instructions</title>
-  <style>
-    :root {
-      --bg: #f5f5f5;
-      --panel-bg: #ffffff;
-      --text: #333333;
-      --stroke: #cccccc;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                   'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-                   'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #eeeeee;
-        --panel-bg: #eeeeee;
-        --text: #2a2a2a;
-        --stroke: #eeeeee;
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--stroke);
-      background: var(--panel-bg);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header .nav {
-      display: flex;
-      align-items: center;
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      color: var(--text);
-      transition: filter 0.3s;
-    }
-    header .nav svg {
-      width: 40px;
-      height: 40px;
-      margin-right: 0.5rem;
-    }
-    header .nav:hover {
-      filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
-    }
-    main {
-      flex: 1;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    /* Container that will switch between column (center) and row (side by side) */
-    .instructions-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      max-width: 90vw;
-      margin: auto;
-    }
-    .instructions-container.horizontal {
-      flex-direction: row;
-      justify-content: center;
-    }
-    .image-wrapper {
-      position: relative;
-    }
-    /* Step number, positioned just to the left of the image */
-    .step-number {
-      position: absolute;
-      top: 1rem;
-      left: -2.5rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--text);
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      border: 1px solid var(--stroke);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <button class="nav" onclick="location.href='WebsiteHome.html'" title="Go back">
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
-           stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 6 30 c 7 -1 29 -0.5 36 1 M 6 24 c 8 0.5 29 0 36 -1 M 6 18 c 7 1 29 0 36 -1"/>
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" class="menu-btn">
+      <svg viewBox="0 0 24 24" width="28" height="28" class="burger">
+        <path class="l1" d="M3 10h16" />
+        <path class="l2" d="M3 14h16" />
       </svg>
     </button>
   </header>
 
-  <main>
-    <div id="instructions" class="instructions-container">
-      <!-- number overlay -->
-      <div class="step-number">1</div>
-      <!-- full instruction sheet -->
-      <div class="image-wrapper">
-        <img id="instructions-img"
-             src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png"
-             alt="Step-by-step building instructions">
+  <nav id="siteMenu" class="menu" hidden>
+    <ul>
+      <li><a href="Test.html">Home</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="instructions.html">Instructions</a></li>
+    </ul>
+  </nav>
+
+  <main class="instructions-main">
+    <div class="instructions-container">
+      <div class="step">
+        <h2 class="step-title">Placeholder</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 1 icon">
+        <p class="step-description">Description for step one.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 1</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 1 icon">
+        <p class="step-description">Description for step one.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 2</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 2 icon">
+        <p class="step-description">Description for step two.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 3</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 3 icon">
+        <p class="step-description">Description for step three.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 4</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 4 icon">
+        <p class="step-description">Description for step four.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 5</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 5 icon">
+        <p class="step-description">Description for step five.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 6</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 6 icon">
+        <p class="step-description">Description for step six.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 7</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 7 icon">
+        <p class="step-description">Description for step seven.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 8</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 8 icon">
+        <p class="step-description">Description for step eight.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 9</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 9 icon">
+        <p class="step-description">Description for step nine.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 10</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 10 icon">
+        <p class="step-description">Description for step ten.</p>
+      </div>
+      <div class="step">
+        <h2 class="step-title">Step 11</h2>
+        <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 11 icon">
+        <p class="step-description">Description for step eleven.</p>
       </div>
     </div>
   </main>
+<script>
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('siteMenu');
 
-  <script>
-    // Once image has loaded, decide layout based on its aspect ratio
-    const img = document.getElementById('instructions-img');
-    img.addEventListener('load', () => {
-      const container = document.getElementById('instructions');
-      if (img.naturalWidth > img.naturalHeight) {
-        container.classList.add('horizontal');
-      }
-    });
-  </script>
+  function setOpen(isOpen) {
+    btn.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      menu.hidden = false;
+      menu.dataset.open = 'true';
+      document.documentElement.classList.add('menu-open');
+      document.body.classList.add('menu-open');
+    } else {
+      menu.dataset.open = 'false';
+      document.documentElement.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+      setTimeout(() => { menu.hidden = true; }, 400);
+    }
+  }
+
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    setOpen(!open);
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
+  });
+
+  menu.addEventListener('click', (e) => {
+    if (e.target === menu) setOpen(false);
+  });
+</script>
 </body>
 </html>
