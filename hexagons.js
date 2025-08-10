@@ -23,13 +23,18 @@
     svg.appendChild(path);
     svg.style.position = 'absolute';
     svg.style.transformOrigin = 'center';
-    svg.style.transform = `translate(${x}px, ${y}px)`;
-    return { el: svg, x, y, width: WIDTH, height: HEIGHT, angle: 0, spin: 0 };
+    return { el: svg, path, x, y, width: WIDTH, height: HEIGHT, angle: 0, spin: 0 };
   }
 
   function newGroup(x, y) {
     const hex = createHex(x, y);
     document.getElementById('molecule-container').appendChild(hex.el);
+    const bbox = hex.path.getBBox();
+    hex.width = bbox.width;
+    hex.height = bbox.height;
+    hex.x += bbox.x;
+    hex.y += bbox.y;
+    hex.el.style.transform = `translate(${hex.x}px, ${hex.y}px)`;
     const baseVx = Math.random() * 0.4 - 0.2;
     const baseVy = Math.random() * 0.4 - 0.2;
     const speed0 = Math.hypot(baseVx, baseVy);
@@ -126,8 +131,10 @@
         h.angle += h.spin;
         h.x += g.vx;
         h.y += g.vy;
-        if (h.x < 0 || h.x + h.width > window.innerWidth) {
-          g.vx *= -1; g.baseVx *= -1;
+        if (h.x + h.width < 0) {
+          h.x = window.innerWidth;
+        } else if (h.x > window.innerWidth) {
+          h.x = -h.width;
         }
         if (h.y < 0 || h.y + h.height > window.innerHeight) {
           g.vy *= -1; g.baseVy *= -1;
