@@ -4,10 +4,11 @@
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Creating with Paper</title>
-   <link rel="stylesheet" href="style.css">
- </head>
+  <link rel="stylesheet" href="style.css">
+</head>
  <body>
-     <header>
+  <div id="molecule-container"></div>
+    <header>
     <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" class="menu-btn">
       <svg viewBox="0 0 24 24" width="28" height="28" class="burger">
         <path class="l1" d="M3 10h16" />
@@ -40,10 +41,12 @@
     </ul>
   </nav>
  
-   <main id="content">
-     <h1>Creating with Paper</h1>
-     <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
-   </main>
+  <main id="content">
+    <h1>Creating with Paper</h1>
+    <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
+  </main>
+
+<script src="hexagons.js"></script>
  
 <script>
     const btn = document.getElementById('menuBtn');

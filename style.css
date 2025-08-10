@@ -218,3 +218,13 @@
         --stroke: #eeeeee;
       }
     }
+
+    /* Floating hexagon background */
+    #molecule-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    header, main { position: relative; z-index: 1; }
