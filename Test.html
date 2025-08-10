@@ -1,76 +1,76 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating with Paper</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <button class="nav" onclick="location.href='index.html'" title="Go back to home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M15 18l-6-6 6-6" />
-      </svg>
-    </button>
-    <div class="controls">
-      <div class="lang-selector" id="langBox">
-        <button id="langToggle" class="dropdown-toggle">EN ▾</button>
-        <div class="sheet"></div>
-        <ul id="langDropdown">
-          <li data-lang="en">EN</li>
-          <li data-lang="es">ES</li>
-          <li data-lang="fr">FR</li>
-          <li data-lang="de">DE</li>
-          <li data-lang="ru">RU</li>
-          <li data-lang="zh">ZH</li>
-          <li data-lang="ja">JA</li>
-        </ul>
-      </div>
-    </div>
-  </header>
-
-  <main id="content">
-    <h1>Creating with Paper</h1>
-    <p>Problems are the rails that let imagination gather speed.</p>
-    <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
-  </main>
-
-  <script>
-    const wrapper = document.getElementById('langBox');
-    const toggle = document.getElementById('langToggle');
-    const dropdown = document.getElementById('langDropdown');
-    const content = document.getElementById('content');
-    const translations = {
-      en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },
-      es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
-      fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
-      de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' },
-      ru: { title: 'Творчество с бумагой', desc: 'Проблемы — это рельсы, по которым ускоряется воображение.', start: 'Начать' },
-      zh: { title: '纸的创作', desc: '问题是让想象力加速的轨道。', start: '开始' },
-      ja: { title: '紙でつくる', desc: '問題は想像力を加速させるレールです。', start: '始める' }
-    };
-    function swapLanguage(lang) {
-      content.classList.add('fade-out');
-      setTimeout(() => {
-        document.documentElement.lang = lang;
-        document.querySelector('h1').textContent = translations[lang].title;
-        document.querySelector('p').textContent = translations[lang].desc;
-        document.querySelector('.start-btn').textContent = translations[lang].start;
-        content.classList.remove('fade-out');
-      }, 300);
-    }
-    toggle.addEventListener('click', e => {
-      e.stopPropagation();
-      wrapper.classList.toggle('open');
-    });
-    dropdown.querySelectorAll('li').forEach(li => li.addEventListener('click', () => {
-      const lang = li.dataset.lang;
-      toggle.textContent = lang.toUpperCase() + ' ▾';
-      wrapper.classList.remove('open');
-      swapLanguage(lang);
-    }));
-    document.addEventListener('click', () => wrapper.classList.remove('open'));
-  </script>
-</body>
-</html>
+ <!DOCTYPE html>
+ <html lang="en-US">
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Creating with Paper</title>
+   <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+   <header>
+     <button class="nav" onclick="location.href='index.html'" title="Go back to home">
+       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+         <path d="M15 18l-6-6 6-6" />
+       </svg>
+     </button>
+     <div class="controls">
+       <div class="lang-selector" id="langBox">
+         <button id="langToggle" class="dropdown-toggle">EN ▾</button>
+         <div class="sheet"></div>
+         <ul id="langDropdown">
+         <ul id="langDropdown" class="lang-dropdown">
+           <li data-lang="en">EN</li>
+           <li data-lang="es">ES</li>
+           <li data-lang="fr">FR</li>
+           <li data-lang="de">DE</li>
+           <li data-lang="ru">RU</li>
+           <li data-lang="zh">ZH</li>
+           <li data-lang="ja">JA</li>
+         </ul>
+       </div>
+     </div>
+   </header>
+ 
+   <main id="content">
+     <h1>Creating with Paper</h1>
+     <p>Problems are the rails that let imagination gather speed.</p>
+     <button class="start-btn" onclick="location.href='instructions.html'"><strong>Start Building</strong></button>
+   </main>
+ 
+   <script>
+     const toggle = document.getElementById('langToggle');
+     const dropdown = document.getElementById('langDropdown');
+     const content = document.getElementById('content');
+     const translations = {
+       en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },
+       es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
+       fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
+       de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' },
+       ru: { title: 'Творчество с бумагой', desc: 'Проблемы — это рельсы, по которым ускоряется воображение.', start: 'Начать' },
+       zh: { title: '纸的创作', desc: '问题是让想象力加速的轨道。', start: '开始' },
+       ja: { title: '紙でつくる', desc: '問題は想像力を加速させるレールです。', start: '始める' }
+     };
+     function swapLanguage(lang) {
+       content.classList.add('fade-out');
+       setTimeout(() => {
+         document.documentElement.lang = lang;
+         document.querySelector('h1').textContent = translations[lang].title;
+         document.querySelector('p').textContent = translations[lang].desc;
+         document.querySelector('.start-btn').textContent = translations[lang].start;
+         content.classList.remove('fade-out');
+       }, 300);
+     }
+     toggle.addEventListener('click', e => {
+       e.stopPropagation();
+       dropdown.classList.toggle('open');
+     });
+     dropdown.querySelectorAll('li').forEach(li => li.addEventListener('click', () => {
+       const lang = li.dataset.lang;
+       toggle.textContent = lang.toUpperCase() + ' ▾';
+       dropdown.classList.remove('open');
+       swapLanguage(lang);
+     }));
+     document.addEventListener('click', () => dropdown.classList.remove('open'));
+   </script>
+ </body>
+ </html>
