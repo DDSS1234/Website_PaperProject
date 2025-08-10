@@ -194,6 +194,7 @@
     p {
       max-width: 64ch;
       margin-top: 1rem;
+
       line-height: 1.5;
     }
     .start-btn {
@@ -218,13 +219,14 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 1rem;
-
-    /* Instructions page */
-    main.instructions-main {
-      padding: 0;
-      justify-content: flex-start;
-      align-items: stretch;
     }
+/* Instructions page */
+main.instructions-main {
+  padding: 0;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100vh;
+}
 
     .instructions-container {
       height: 100vh;
@@ -248,13 +250,6 @@
       text-align: center;
       scroll-snap-align: start;
       height: 100%;
-    }
-
-    .step-title {
-      position: absolute;
-      top: 1rem;
-      font-size: 1.25rem;
-      font-weight: bold;
     }
 
     .step img {
@@ -282,32 +277,34 @@
         }
       }
 
-    /* Progress bar */
-    .progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--stroke);
-      z-index: 1000;
-    }
+/* Progress bar */
+.progress {
+  position: fixed;
+  background: var(--stroke);
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 4px;
+}
 
-    .progress-bar {
-      height: 100%;
-      width: 0;
-      background: var(--text);
-    }
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--text);
+}
 
-    @media (min-width: 768px) {
-      .progress {
-        width: 4px;
-        height: 100%;
-        left: auto;
-        right: 0;
-      }
-      .progress-bar {
-        width: 100%;
-        height: 0;
-      }
-    }
+@media (min-width: 768px) {
+  .progress {
+    top: 10px;
+    bottom: 10px;
+    left: auto;
+    right: 10px;
+    width: 4px;
+    height: auto;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 0;
+  }
+}

@@ -128,10 +128,12 @@
   function updateProgress() {
     const max = container.scrollHeight - container.clientHeight;
     const percent = max ? container.scrollTop / max : 0;
+    // On screens wider than 768px, the progress bar fills vertically (height changes, width is 100%)
     if (window.matchMedia('(min-width: 768px)').matches) {
       progressBar.style.height = `${percent * 100}%`;
       progressBar.style.width = '100%';
     } else {
+      // On smaller screens, the progress bar fills horizontally (width changes, height is 100%)
       progressBar.style.width = `${percent * 100}%`;
       progressBar.style.height = '100%';
     }
