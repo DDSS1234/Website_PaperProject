@@ -15,10 +15,10 @@
         <path class="l2" d="M3 14h16" />
       </svg>
     </button>
-    <div class="controls">
-      <div class="lang-selector" id="langBox">
-       <button id="langToggle" class="dropdown-toggle">EN</button>
-       <ul id="langDropdown" class="lang-dropdown">
+      <div class="controls">
+        <div class="lang-selector" id="langBox">
+         <button id="langToggle" class="dropdown-toggle">EN</button>
+         <ul id="langDropdown" class="lang-dropdown">
           <li data-lang="en">EN</li>
           <li data-lang="es">ES</li>
           <li data-lang="fr">FR</li>
@@ -34,9 +34,9 @@
   <!-- Full-viewport overlay menu -->
   <nav id="siteMenu" class="menu" hidden>
     <ul>
+      <li><a href="Test.html">Home</a></li>
       <li><a href="About.html">About</a></li>
       <li><a href="instructions.html">Instructions</a></li>
-      <li><a href="pageturnDemo.html">Page Turn Demo</a></li>
     </ul>
   </nav>
  
@@ -95,9 +95,9 @@
        content.classList.add('fade-out');
        setTimeout(() => {
          document.documentElement.lang = lang;
-         document.querySelector('h1').textContent = translations[lang].title;
-         document.querySelector('p').textContent = translations[lang].desc;
-         document.querySelector('.start-btn').textContent = translations[lang].start;
+          document.querySelector('h1').textContent = translations[lang].title;
+          content.querySelector('p').textContent = translations[lang].desc;
+          document.querySelector('.start-btn').textContent = translations[lang].start;
          content.classList.remove('fade-out');
        }, 300);
      }
