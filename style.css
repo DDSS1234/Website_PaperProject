@@ -262,18 +262,26 @@ main.instructions-main {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       height: 100dvh;
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .step-title {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      margin: 0;      
     }
 
     .step img {
       max-width: 60%;
+      max-height: 50vh;      
       height: auto;
       border: 1px solid var(--stroke);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .step-description {
-      position: absolute;
-      bottom: 1rem;
       max-width: 80%;
     }
 
