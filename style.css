@@ -41,7 +41,7 @@
       transition: background 0.5s, color 0.5s;
     }
     .nav svg { width: 40px; height: 40px; margin-right: 0.5rem; }
-    .nav:hover { color: #eeeeee; filter: drop-shadow(0 0px 1px rgba(59, 59, 59, 0.8)); }
+    .nav:hover { filter: drop-shadow(0 0px 1px rgba(59, 59, 59, 0.8)); }
 
     /* Language dropdown */
     .lang-selector { position: relative; display: inline-block; margin-left: 1rem; }
@@ -73,10 +73,12 @@
       border-radius: 4px;
       opacity: 0;
       visibility: hidden;
+      display: none;
       transition: opacity 0.3s, visibility 0.3s;
       pointer-events: none;
     }
     .lang-dropdown.open {
+      display:block;
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
