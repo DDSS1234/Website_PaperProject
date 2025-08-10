@@ -81,11 +81,6 @@
       visibility: visible;
       pointer-events: auto;
     }
-    }
-    .lang-dropdown.open {
-      visibility: visible;
-      opacity: 1;
-    }
     .lang-dropdown li {
       padding: 0.5rem 1rem;
       cursor: pointer;
