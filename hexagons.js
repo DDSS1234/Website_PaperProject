@@ -1,19 +1,21 @@
 // Floating cellulose-like hexagons
 (function(){
-  const WIDTH = 50;
-  const HEIGHT = 50;
-  const NUM_HEX = 75;
+  const WIDTH = 100;
+  const HEIGHT = 100;
+  const NUM_HEX = 100;
   const DECAY = 0.95; // rate at which extra motion/rotation fades
+  const WORLD_WIDTH = 2000;
+  const WORLD_HEIGHT = 1500;
   const groups = [];
   const mouse = { x: 0, y: 0, active: false };
-  const PATH_D = "M11.65,18.49,21.04,2.48h-8.16l-4.08,7.07,4.08,7.07h8.16l4.08-7.07-4.08-7.07ZM24.88,26.32,34.27,10.31h-8.16l-4.08,7.07,4.08,7.07h8.16l4.08-7.07-4.08-7.07ZM40.38.03h-3.81l-1.9,3.3,1.9,3.3h3.81l1.9-3.3L40.38.03ZM48,14.99h-2.7l-1.35,2.34,1.35,2.34h2.7l1.35-2.34-1.35-2.34ZM10.93,19.66h-2.89l-1.44,2.5,1.44,2.5h2.89l1.44-2.5-1.44-2.5ZM12.84,16.56l-1.91,3.1M34.27,24.45l2.41,4.09M43.95,17.33h-5.67M36.57,6.62l-2.3,3.69M27.12,11.49h6.62M33.69,23.01l3.43-5.63M23.75,17.38l3.37,5.76M13.44,15.64h6.81M10.15,9.21l3.19-5.49M23.75,9.23l-3.38-5.71";
+  const PATH_D = "M9.92,36.18,28.3,4.83h-15.98l-7.99,13.84,7.99,13.84h15.98l7.99-13.84-7.99-13.84ZM35.83,51.52,54.21,20.17h-15.98l-7.99,13.84,7.99,13.84h15.98l7.99-13.84-7.99-13.84ZM66.18.03h-7.46l-3.73,6.46,3.73,6.46h7.46l3.73-6.46L66.18.03ZM81.1,29.32h-5.29l-2.64,4.58,2.64,4.58h5.29l2.64-4.58-2.64-4.58ZM8.51,38.46H2.86L.03,43.36l2.83,4.9h5.65l2.83-4.9-2.83-4.9ZM12.25,32.4l-3.74,6.07M54.21,47.85l4.71,8M73.17,33.9h-11.09M58.72,12.94l-4.5,7.22";
 
   function createHex(x, y) {
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('width', WIDTH);
     svg.setAttribute('height', HEIGHT);
-    svg.setAttribute('viewBox', '0 0 50 50');
+    svg.setAttribute('viewBox', '0 0 100 100');
     const path = document.createElementNS(svgNS, 'path');
     path.setAttribute('d', PATH_D);
     path.setAttribute('stroke', '#2a2a2a');
@@ -132,12 +134,14 @@
         h.x += g.vx;
         h.y += g.vy;
         if (h.x + h.width < 0) {
-          h.x = window.innerWidth;
-        } else if (h.x > window.innerWidth) {
+          h.x = WORLD_WIDTH;
+        } else if (h.x > WORLD_WIDTH) {
           h.x = -h.width;
         }
-        if (h.y < 0 || h.y + h.height > window.innerHeight) {
-          g.vy *= -1; g.baseVy *= -1;
+        if (h.y + h.height < 0) {
+          h.y = WORLD_HEIGHT;
+        } else if (h.y > WORLD_HEIGHT) {
+          h.y = -h.height;
         }
         h.el.style.transform = `translate(${h.x}px, ${h.y}px) rotate(${h.angle}deg)`;
       });
@@ -152,8 +156,8 @@
     });
     window.addEventListener('mouseout', () => { mouse.active = false; });
     for (let i = 0; i < NUM_HEX; i++) {
-      const x = Math.random() * (window.innerWidth - WIDTH);
-      const y = Math.random() * (window.innerHeight - HEIGHT);
+      const x = Math.random() * (WORLD_WIDTH - WIDTH);
+      const y = Math.random() * (WORLD_HEIGHT - HEIGHT);
       newGroup(x, y);
     }
     update();
