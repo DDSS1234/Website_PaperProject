@@ -4,7 +4,9 @@
   const WIDTH = SIDE * 2;
   const HEIGHT = Math.sqrt(3) * SIDE;
   const NUM_HEX = 75;
+  const DECAY = 0.95; // rate at which extra motion/rotation fades
   const groups = [];
+  const mouse = { x: 0, y: 0, active: false };
 
   function createHex(x, y) {
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -28,17 +30,25 @@
     poly.setAttribute('opacity', '0.2');
     svg.appendChild(poly);
     svg.style.position = 'absolute';
+    svg.style.transformOrigin = 'center';
     svg.style.transform = `translate(${x}px, ${y}px)`;
-    return { el: svg, x, y, width: WIDTH, height: HEIGHT };
+    return { el: svg, x, y, width: WIDTH, height: HEIGHT, angle: 0, spin: 0 };
   }
 
   function newGroup(x, y) {
     const hex = createHex(x, y);
     document.getElementById('molecule-container').appendChild(hex.el);
+    const baseVx = Math.random() * 0.4 - 0.2;
+    const baseVy = Math.random() * 0.4 - 0.2;
+    const speed0 = Math.hypot(baseVx, baseVy);
+    hex.spin = (Math.random() * 0.25 * speed0) * (Math.random() < 0.5 ? -1 : 1);
     const group = {
       hexes: [hex],
-      vx: (Math.random() * 0.4 - 0.2),
-      vy: (Math.random() * 0.4 - 0.2)
+      vx: baseVx,
+      vy: baseVy,
+      baseVx,
+      baseVy,
+      speed0
     };
     groups.push(group);
   }
@@ -49,19 +59,15 @@
 
   function connect(g1, g2, h1, h2) {
     const dx = (h2.x + h2.width / 2) - (h1.x + h1.width / 2);
-    const dy = (h2.y + h2.height / 2) - (h1.y + h1.height / 2);
-    let shiftX = 0, shiftY = 0;
-    if (Math.abs(dx) > Math.abs(dy)) {
-      shiftX = dx > 0 ? h1.width : -h1.width;
-    } else {
-      shiftY = dy > 0 ? h1.height : -h1.height;
-    }
+    const shiftX = dx > 0 ? h1.width : -h1.width;
     const offX = h1.x + shiftX - h2.x;
-    const offY = h1.y + shiftY - h2.y;
-    g2.hexes.forEach(h => { h.x += offX; h.y += offY; });
+    g2.hexes.forEach(h => { h.x += offX; });
     g1.hexes = g1.hexes.concat(g2.hexes);
-    g1.vx = (g1.vx + g2.vx) / 2;
-    g1.vy = (g1.vy + g2.vy) / 2;
+    g1.baseVx = (g1.baseVx + g2.baseVx) / 2;
+    g1.baseVy = (g1.baseVy + g2.baseVy) / 2;
+    g1.vx = g1.baseVx;
+    g1.vy = g1.baseVy;
+    g1.speed0 = (g1.speed0 + g2.speed0) / 2;
     groups.splice(groups.indexOf(g2), 1);
   }
 
@@ -78,9 +84,15 @@
                 connect(g1, g2, h1, h2);
                 j--;
               } else {
-                const vx = g1.vx, vy = g1.vy;
+                const vx = g1.vx, vy = g1.vy,
+                      bvx = g1.baseVx, bvy = g1.baseVy,
+                      s0 = g1.speed0;
                 g1.vx = g2.vx; g1.vy = g2.vy;
+                g1.baseVx = g2.baseVx; g1.baseVy = g2.baseVy;
+                g1.speed0 = g2.speed0;
                 g2.vx = vx; g2.vy = vy;
+                g2.baseVx = bvx; g2.baseVy = bvy;
+                g2.speed0 = s0;
               }
               break;
             }
@@ -93,12 +105,42 @@
 
   function update() {
     groups.forEach(g => {
+      if (mouse.active) {
+        g.hexes.forEach(h => {
+          const dx = h.x + h.width / 2 - mouse.x;
+          const dy = h.y + h.height / 2 - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 100 && dist > 0) {
+            const strength = (1 - dist / 100) * g.speed0;
+            g.vx += (dx / dist) * strength;
+            g.vy += (dy / dist) * strength;
+          }
+        });
+      }
+
+      const speed = Math.hypot(g.vx, g.vy);
+      const max = g.speed0 * 3;
+      if (speed > max) {
+        const s = max / speed;
+        g.vx *= s; g.vy *= s;
+      }
+
+      // drift back toward original motion
+      g.vx = g.baseVx + (g.vx - g.baseVx) * DECAY;
+      g.vy = g.baseVy + (g.vy - g.baseVy) * DECAY;
+
       g.hexes.forEach(h => {
+        h.spin *= DECAY;
+        h.angle += h.spin;
         h.x += g.vx;
         h.y += g.vy;
-        if (h.x < 0 || h.x + h.width > window.innerWidth) g.vx *= -1;
-        if (h.y < 0 || h.y + h.height > window.innerHeight) g.vy *= -1;
-        h.el.style.transform = `translate(${h.x}px, ${h.y}px)`;
+        if (h.x < 0 || h.x + h.width > window.innerWidth) {
+          g.vx *= -1; g.baseVx *= -1;
+        }
+        if (h.y < 0 || h.y + h.height > window.innerHeight) {
+          g.vy *= -1; g.baseVy *= -1;
+        }
+        h.el.style.transform = `translate(${h.x}px, ${h.y}px) rotate(${h.angle}deg)`;
       });
     });
     checkCollisions();
@@ -106,6 +148,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
+    });
+    window.addEventListener('mouseout', () => { mouse.active = false; });
     for (let i = 0; i < NUM_HEX; i++) {
       const x = Math.random() * (window.innerWidth - WIDTH);
       const y = Math.random() * (window.innerHeight - HEIGHT);
