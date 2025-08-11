@@ -120,9 +120,23 @@
   const progressBar = document.querySelector('.progress-bar');
   let isWheelScrolling = false;
   let stepHeight = container.clientHeight;
+  let lastTop = 0;  
 
   function updateStepHeight() {
     stepHeight = container.clientHeight;
+  }
+
+  function toggleEndPanel(){
+    const max = container.scrollHeight - container.clientHeight;
+    const dir = Math.sign(container.scrollTop - lastTop);  // +1 down, -1 up
+    lastTop = container.scrollTop;
+
+    const nearBottom = container.scrollTop >= max - stepHeight * 0.6; // threshold ~60% of one panel
+    if (dir > 0 && nearBottom) {
+      document.body.classList.add('show-end');    // slide up
+    } else if (dir < 0) {
+      document.body.classList.remove('show-end'); // slide back down
+    }
   }
 
   container.addEventListener('wheel', (e) => {
@@ -155,12 +169,21 @@
   }
 
   container.addEventListener('scroll', updateProgress);
+  container.addEventListener('scroll', toggleEndPanel, { passive: true });
   window.addEventListener('resize', () => {
     updateStepHeight();
     updateProgress();
+    stepHeight = container.clientHeight;
   });
   updateStepHeight();
   updateProgress();
 </script>
+
+<div id="endPanel" aria-hidden="true">
+  <div class="inner">
+    <h2>Questions?</h2>
+    <p>your.email@example.com<br>IG: @yourhandle</p>
+  </div>
+</div>
 </body>
 </html>

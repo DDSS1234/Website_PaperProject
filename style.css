@@ -433,3 +433,20 @@ main.instructions-main {
   padding: 1rem;
   transform: rotateY(180deg);
 }
+
+#endPanel{
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg, #2a2a2a);
+  color: #eeeeee;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  transform: translateY(100%);           /* start hidden below */
+  transition: transform 400ms var(--ease, cubic-bezier(.2,.8,.2,1));
+  z-index: 1000;
+  pointer-events: none;                   /* allow scrolling through it */
+}
+#endPanel .inner{ padding: 24px; font-size: clamp(18px,3.5vmin,28px); line-height: 1.4; }
+#endPanel h2{ margin: 0 0 .5rem; font-weight: 700; }
+body.show-end #endPanel{ transform: translateY(0%); }  /* slide up when class is on body */

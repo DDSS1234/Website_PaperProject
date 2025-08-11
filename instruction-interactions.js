@@ -10,8 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const hideDetail = () => {
     overlay.classList.remove('show');
     if (activeCard) {
-      activeCard.classList.remove('flipped');
-      activeCard.addEventListener('transitionend', () => activeCard.remove(), { once: true });
+      const card = activeCard;
+      const inner = card.querySelector('.inner');
+      if (inner) {
+        inner.addEventListener('transitionend', () => card.remove(), { once: true });
+      } else {
+        card.remove();
+      }
+      card.classList.remove('flipped');
       activeCard = null;
     }
   };
