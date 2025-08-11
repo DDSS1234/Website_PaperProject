@@ -124,7 +124,13 @@
   
   const container = document.querySelector('.instructions-container');
   const progressBar = document.querySelector('.progress-bar');
-    const steps = document.querySelectorAll('.step');
+  const steps = document.querySelectorAll('.step');
+  let isWheelScrolling = false;
+  let stepHeight = steps[0].offsetHeight;
+
+  function updateStepHeight() {
+    stepHeight = steps[0].offsetHeight;
+  }
   let isWheelScrolling = false;
 
   container.addEventListener('wheel', (e) => {
@@ -132,14 +138,14 @@
     if (isWheelScrolling) return;
     isWheelScrolling = true;
     const direction = Math.sign(e.deltaY);
-    const nextIndex = Math.round(container.scrollTop / container.clientHeight) + direction;
+    const nextIndex = Math.round(container.scrollTop / stepHeight) + direction;
     const targetIndex = Math.max(0, Math.min(nextIndex, steps.length - 1));
-    container.scrollTo({ top: targetIndex * container.clientHeight, behavior: 'smooth' });
+    container.scrollTo({ top: targetIndex * stepHeight, behavior: 'smooth' });
     setTimeout(() => { isWheelScrolling = false; }, 500);
   }, { passive: false });
 
   function updateProgress() {
-    const max = container.scrollHeight - container.clientHeight;
+    const max = stepHeight * (steps.length - 1);
     const percent = max ? container.scrollTop / max : 0;
     // On screens wider than 768px, the progress bar fills vertically (height changes, width is 100%)
     if (window.matchMedia('(min-width: 768px)').matches) {
@@ -153,7 +159,11 @@
   }
 
   container.addEventListener('scroll', updateProgress);
-  window.addEventListener('resize', updateProgress);
+  window.addEventListener('resize', () => {
+    updateStepHeight();
+    updateProgress();
+  });
+  updateStepHeight();
   updateProgress();
 </script>
 </body>

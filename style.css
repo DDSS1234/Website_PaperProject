@@ -292,19 +292,18 @@ main.instructions-main {
       max-width: 80%;
     }
 
-        @media (min-width: 900px) {
-          .instructions-container {
-           grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 40px;             /* gap returns between Placeholder and Step 1 */
-          }
-        }
-        .step {
-          scroll-snap-align: unset;
-        }
-        .step:nth-child(odd) {
-          scroll-snap-align: start;
-        }
-      }
+@media (min-width: 900px) {
+  .instructions-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;             /* gap returns between Placeholder and Step 1 */
+  }
+  .step {
+    scroll-snap-align: unset;
+  }
+  .step:nth-child(odd) {
+    scroll-snap-align: start;
+  }
+}
 
 /* Progress bar */
 .progress {
