@@ -82,22 +82,23 @@
     const toggle = document.getElementById('langToggle');
     const dropdown = document.getElementById('langDropdown');
     const content = document.getElementById('content');
+    const titleEl = content.querySelector('h1');
+    const startBtn = content.querySelector('.start-btn');    
     const translations = {
-       en: { title: 'Creating with Paper', desc: 'Problems are the rails that let imagination gather speed.', start: 'Start Building' },
-       es: { title: 'Crear con Papel', desc: 'Los problemas son los rieles que permiten que la imaginación gane velocidad.', start: 'Comenzar' },
-       fr: { title: 'Créer avec du Papier', desc: 'Les problèmes sont les rails qui permettent à l\'imagination de prendre de la vitesse.', start: 'Commencer' },
-       de: { title: 'Herstellen mit Papier', desc: 'Probleme sind die Schienen, die der Fantasie Geschwindigkeit verleihen.', start: 'Loslegen' },
-       ru: { title: 'Творчество с бумагой', desc: 'Проблемы — это рельсы, по которым ускоряется воображение.', start: 'Начать' },
-       zh: { title: '纸的创作', desc: '问题是让想象力加速的轨道。', start: '开始' },
-       ja: { title: '紙でつくる', desc: '問題は想像力を加速させるレールです。', start: '始める' }
+       en: { title: 'Creating with Paper', start: 'Start Building' },
+       es: { title: 'Crear con Papel', start: 'Comenzar' },
+       fr: { title: 'Créer avec du Papier', start: 'Commencer' },
+       de: { title: 'Herstellen mit Papier', start: 'Loslegen' },
+       ru: { title: 'Творчество с бумагой', start: 'Начать' },
+       zh: { title: '纸的创作', start: '开始' },
+       ja: { title: '紙でつくる', start: '始める' }
      };
      function swapLanguage(lang) {
        content.classList.add('fade-out');
        setTimeout(() => {
          document.documentElement.lang = lang;
-          document.querySelector('h1').textContent = translations[lang].title;
-          content.querySelector('p').textContent = translations[lang].desc;
-          document.querySelector('.start-btn').textContent = translations[lang].start;
+         if (titleEl) titleEl.textContent = translations[lang].title;
+         if (startBtn) startBtn.textContent = translations[lang].start;
          content.classList.remove('fade-out');
        }, 300);
      }
