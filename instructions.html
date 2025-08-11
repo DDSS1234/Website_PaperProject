@@ -111,18 +111,11 @@
       <div class="step">
         <h4 class="step-description"></h4>
       </div>
-    </div>
-  </main>
-
-  <div id="endPanel" aria-hidden="true">
-    <div class="inner">
-      <h2>Questions?</h2>
-      <p>alexrosno@gmail.com<br><li><a href="https://www.instagram.com/ajrosno/?hl=en">Instagram</a></li></p>
-    </div>
   </div>
-
+  </main>
   <script src="instruction-interactions.js"></script>
   <script>
+  document.addEventListener('DOMContentLoaded', () => {    
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('siteMenu');
 
@@ -416,7 +409,8 @@
     swapLanguage(lang);
   }));
 
-  document.addEventListener('click', () => dropdown.classList.remove('open'));  
+  document.addEventListener('click', () => dropdown.classList.remove('open'));
+});
 </script>
 
 <div id="endPanel" aria-hidden="true">
@@ -433,7 +427,7 @@
               fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
       </svg>
     </a>
-  </div>
+</div>
 </div>
 </body>
 </html>
