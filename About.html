@@ -33,6 +33,8 @@
           <li data-lang="ru">RU</li>
           <li data-lang="zh">ZH</li>
           <li data-lang="ja">JA</li>
+          <li data-lang="it">IT</li>
+          <li data-lang="ar">AR</li>          
         </ul>
       </div>
     </div>
@@ -86,6 +88,29 @@
 
     const toggle = document.getElementById('langToggle');
     const dropdown = document.getElementById('langDropdown');
+const aboutText = document.querySelector('.about-text');
+    const translations = {
+      en: { about: 'Alex Rosno is a designer from Wisconsin currently based in Los Angeles investigating the intersection of AI tools and physical creation.' },
+      es: { about: 'Alex Rosno es un diseñador de Wisconsin actualmente radicado en Los Ángeles que investiga la intersección entre las herramientas de IA y la creación física.' },
+      fr: { about: 'Alex Rosno est un designer du Wisconsin actuellement basé à Los Angeles, explorant l\'intersection entre les outils d\'IA et la création physique.' },
+      de: { about: 'Alex Rosno ist ein Designer aus Wisconsin, der derzeit in Los Angeles lebt und die Schnittstelle zwischen KI-Werkzeugen und physischer Gestaltung untersucht.' },
+      ru: { about: 'Алекс Росно — дизайнер из Висконсина, сейчас живущий в Лос-Анджелесе и исследующий пересечение инструментов ИИ и физического творчества.' },
+      zh: { about: 'Alex Rosno 是来自威斯康星州、现居洛杉矶的设计师，正在探索人工智能工具与实体创作的交汇点。' },
+      ja: { about: 'アレックス・ロスノはウィスコンシン出身で現在ロサンゼルスを拠点とするデザイナーであり、AIツールと物理的創作の交差点を探求しています。' },
+      it: { about: "Alex Rosno è un designer del Wisconsin, attualmente con base a Los Angeles, che indaga l'intersezione tra gli strumenti di IA e la creazione fisica." },
+      ar: { about: 'أليكس روسنو مصمم من ويسكونسن يقيم حاليًا في لوس أنجلوس ويبحث في تقاطع أدوات الذكاء الاصطناعي والإبداع المادي.', dir: 'rtl' }
+    };
+
+    function swapLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = translations[lang].dir || 'ltr';
+      aboutText.textContent = translations[lang].about;
+      localStorage.setItem('lang', lang);
+    }
+
+    const savedLang = localStorage.getItem('lang') || 'en';
+    toggle.textContent = savedLang.toUpperCase() + ' ▾';
+    swapLanguage(savedLang);    
 
     toggle.addEventListener('click', e => {
       e.stopPropagation();
@@ -96,7 +121,7 @@
       const lang = li.dataset.lang;
       toggle.textContent = lang.toUpperCase() + ' ▾';
       dropdown.classList.remove('open');
-      document.documentElement.lang = lang;
+      swapLanguage(lang);
     }));
 
     document.addEventListener('click', () => dropdown.classList.remove('open'));

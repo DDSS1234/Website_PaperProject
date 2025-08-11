@@ -26,6 +26,8 @@
           <li data-lang="ru">RU</li>
           <li data-lang="zh">ZH</li>
           <li data-lang="ja">JA</li>
+          <li data-lang="it">IT</li>
+          <li data-lang="ar">AR</li>
         </ul>
       </div>
     </div>
@@ -91,17 +93,25 @@
        de: { title: 'Herstellen mit Papier', start: 'Loslegen' },
        ru: { title: 'Творчество с бумагой', start: 'Начать' },
        zh: { title: '纸的创作', start: '开始' },
-       ja: { title: '紙でつくる', start: '始める' }
+       ja: { title: '紙でつくる', start: '始める' },
+       it: { title: 'Creare con la carta', start: 'Inizia a costruire' },
+       ar: { title: 'الإبداع بالورق', start: 'ابدأ البناء', dir: 'rtl' }
      };
      function swapLanguage(lang) {
        content.classList.add('fade-out');
        setTimeout(() => {
          document.documentElement.lang = lang;
+         document.documentElement.dir = translations[lang].dir || 'ltr';         
          if (titleEl) titleEl.textContent = translations[lang].title;
          if (startBtn) startBtn.textContent = translations[lang].start;
+         localStorage.setItem('lang', lang);         
          content.classList.remove('fade-out');
        }, 300);
      }
+     const savedLang = localStorage.getItem('lang') || 'en';
+     toggle.textContent = savedLang.toUpperCase() + ' ▾';
+     swapLanguage(savedLang);
+
      toggle.addEventListener('click', e => {
        e.stopPropagation();
        dropdown.classList.toggle('open');

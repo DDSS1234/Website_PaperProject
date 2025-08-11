@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Creating with Paper – Instructions</title>
   <link rel="stylesheet" href="style.css">
+  <script>
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      document.documentElement.lang = savedLang;
+      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+    }
+  </script>  
 </head>
 <body>
   <header>
