@@ -295,8 +295,8 @@ main.instructions-main {
 
     .step-title {
       position: absolute;
-      top: 2rem;
-      left: 2rem;
+      top:  calc(var(--panel-offset) + 20px);  /* move down */
+      left: calc(var(--panel-offset) + 25px);  /* move inward */
       margin: 0;
       color: rgba(42,42,42,0.5);    
     }
@@ -305,8 +305,6 @@ main.instructions-main {
       max-width: 60%;
       max-height: 50vh;      
       height: auto;
-      border: 1px solid var(--stroke);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .step-description {
