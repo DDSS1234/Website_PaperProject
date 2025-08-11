@@ -10,21 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hideDetail = () => {
     overlay.classList.remove('show');
-    if (activeCard) {
-      const card = activeCard;
-      const inner = card.querySelector('.inner');
-      if (inner) {
-        inner.addEventListener('transitionend', () => card.remove(), { once: true });
-      } else {
-        card.remove();
-      }
-      card.classList.remove('flipped');
-      activeCard = null;
-    }
     if (activeImage) {
       activeImage.style.visibility = '';
-      activeImage = null;
-    }    
+    }
+    if (activeCard) {
+      const card = activeCard;
+      card.classList.add('fade-out');
+      card.addEventListener('transitionend', () => card.remove(), { once: true });
+      activeCard = null;
+    }
+    activeImage = null;
   };
 
   overlay.addEventListener('click', hideDetail);

@@ -390,18 +390,27 @@ main.instructions-main {
   position: fixed;
   inset: 0;
   background: rgba(42,42,42,0.5);
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
   z-index: 999;
 }
 
 .image-overlay.show {
-  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .detail-card {
   position: fixed;
   z-index: 1000;
   perspective: 1000px;
+  opacity: 1;
+  transition: opacity 0.4s;
+}
+
+.detail-card.fade-out {
+  opacity: 0;
 }
 
 .detail-card .inner {
