@@ -5,7 +5,14 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Creating with Paper</title>
   <link rel="stylesheet" href="style.css">
-</head>
+  <script>
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      document.documentElement.lang = savedLang;
+      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+    }
+  </script>
+ </head>
  <body>
   <div id="molecule-container"></div>
     <header>
@@ -85,26 +92,67 @@
     const dropdown = document.getElementById('langDropdown');
     const content = document.getElementById('content');
     const titleEl = content.querySelector('h1');
-    const startBtn = content.querySelector('.start-btn');    
+    const startBtn = content.querySelector('.start-btn');
+    const navLinks = document.querySelectorAll('#siteMenu a');
     const translations = {
-       en: { title: 'Creating with Paper', start: 'Start Building' },
-       es: { title: 'Crear con Papel', start: 'Comenzar' },
-       fr: { title: 'Créer avec du Papier', start: 'Commencer' },
-       de: { title: 'Herstellen mit Papier', start: 'Loslegen' },
-       ru: { title: 'Творчество с бумагой', start: 'Начать' },
-       zh: { title: '纸的创作', start: '开始' },
-       ja: { title: '紙でつくる', start: '始める' },
-       it: { title: 'Creare con la carta', start: 'Inizia a costruire' },
-       ar: { title: 'الإبداع بالورق', start: 'ابدأ البناء', dir: 'rtl' }
+       en: {
+         nav: { home: 'Home', about: 'About', instructions: 'Instructions' },
+         title: 'Creating with Paper',
+         start: 'Start Building'
+       },
+       es: {
+         nav: { home: 'Inicio', about: 'Acerca', instructions: 'Instrucciones' },
+         title: 'Crear con Papel',
+         start: 'Comenzar'
+       },
+       fr: {
+         nav: { home: 'Accueil', about: 'À propos', instructions: 'Instructions' },
+         title: 'Créer avec du Papier',
+         start: 'Commencer'
+       },
+       de: {
+         nav: { home: 'Startseite', about: 'Über', instructions: 'Anleitungen' },
+         title: 'Herstellen mit Papier',
+         start: 'Loslegen'
+       },
+       ru: {
+         nav: { home: 'Главная', about: 'О проекте', instructions: 'Инструкции' },
+         title: 'Творчество с бумагой',
+         start: 'Начать'
+       },
+       zh: {
+         nav: { home: '主页', about: '关于', instructions: '说明' },
+         title: '纸的创作',
+         start: '开始'
+       },
+       ja: {
+         nav: { home: 'ホーム', about: '概要', instructions: '手順' },
+         title: '紙でつくる',
+         start: '始める'
+       },
+       it: {
+         nav: { home: 'Home', about: 'Informazioni', instructions: 'Istruzioni' },
+         title: 'Creare con la carta',
+         start: 'Inizia a costruire'
+       },
+       ar: {
+         nav: { home: 'الرئيسية', about: 'حول', instructions: 'التعليمات' },
+         title: 'الإبداع بالورق',
+         start: 'ابدأ البناء',
+         dir: 'rtl'
+       }
      };
      function swapLanguage(lang) {
        content.classList.add('fade-out');
        setTimeout(() => {
          document.documentElement.lang = lang;
-         document.documentElement.dir = translations[lang].dir || 'ltr';         
+         document.documentElement.dir = translations[lang].dir || 'ltr';
+         navLinks[0].textContent = translations[lang].nav.home;
+         navLinks[1].textContent = translations[lang].nav.about;
+         navLinks[2].textContent = translations[lang].nav.instructions;        
          if (titleEl) titleEl.textContent = translations[lang].title;
          if (startBtn) startBtn.textContent = translations[lang].start;
-         localStorage.setItem('lang', lang);         
+         localStorage.setItem('lang', lang);
          content.classList.remove('fade-out');
        }, 300);
      }

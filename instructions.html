@@ -53,8 +53,8 @@
     <div class="instructions-container">
       <div class="step">
         <h1 class="step-title">M</h1>
-        <img class="instruction-image" src="images/Place.png" alt="Step 1 icon">
-        <h2 class="step-description">Instructions</h2>
+        <img class="instruction-image" src="images/steptitle-01.png" alt="Step 1 icon" data-detail="OBJ's and molds coming soon!">
+        <h2 class="step-description">Building your own paper module</h2>
       </div>
       <div class="step">
         <h1 class="step-title">1</h1>
@@ -107,12 +107,12 @@
       <div class="step">
         <h1 class="step-title">9</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 9 icon" data-detail="Repeat to create multiple sheets or modules. Stack or join them for furniture, wall panels, or other projects.">
+        <img class="instruction-image" src="images/step9-01.png" alt="Step 9 icon" data-detail="Repeat to create multiple sheets or modules. Stack or join them for furniture, wall panels, or other projects.">
         <h2 class="step-description">Build</h2>
       </div>
       <div class="step">
-        <h4 class="step-description">Questions?</h4>
-      </div>      
+        <h4 class="step-description"></h4>
+      </div>
     </div>
   </main>
 
@@ -223,14 +223,14 @@
   const navLinks = document.querySelectorAll('#siteMenu a');
   const stepDescriptions = document.querySelectorAll('.step-description');
   const stepImages = document.querySelectorAll('.step img');
-  const endHeading = document.querySelector('#endPanel h2');
-  const content = document.querySelector('main');  
+  const endHeadings = document.querySelectorAll('#endPanel h2');
+  const content = document.querySelector('main');
   const translations = {
     en: {
       nav: { home: 'Home', about: 'About', instructions: 'Instructions' },
       end: 'Questions?',
       steps: [
-        { desc: 'Instructions' },
+        { desc: 'Building your own paper module' },
         { desc: 'Gather', detail: `Collect all necessary materials: paper scraps, blender, mould & deckle, sponge, fine mesh, blotter sheets, absorbent layers (e.g., towels or felt), water container, some sunlight or a drying rack. Extra buckets, a shredder, and a wet vacuum can help speed up the process.` },
         { desc: 'Prepare', detail: `Tear or shred paper into pieces about 1 in (2-3 cm) across. Smaller pieces blend faster and more evenly.` },
         { desc: 'Blend', detail: `Place paper pieces into a blender with water (about 1 part paper to 4 parts water). Blend until the mixture looks like thick oatmeal — slightly clumpy is fine.` },
@@ -397,7 +397,7 @@
           stepImages[i].dataset.detail = step.detail;
         }
       });
-      endHeading.textContent = t.end;
+      endHeadings.forEach(h => h.textContent = t.end);
       localStorage.setItem('lang', lang);
       content.classList.remove('fade-out');
     }, 300);
@@ -424,7 +424,7 @@
 
 <div id="endPanel" aria-hidden="true">
   <div class="inner">
-    <h2>Questions?</h2>
+    <h2 class="end-heading"></h2>
 
     <!-- Instagram DM (messenger-style icon only) -->
     <a class="icon-btn" href="https://ig.me/m/ajrosno"
