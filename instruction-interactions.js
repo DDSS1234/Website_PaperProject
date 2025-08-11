@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(overlay);
 
   let activeCard = null;
+  let activeImage = null;  
 
   const hideDetail = () => {
     overlay.classList.remove('show');
@@ -20,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
       card.classList.remove('flipped');
       activeCard = null;
     }
+    if (activeImage) {
+      activeImage.style.visibility = '';
+      activeImage = null;
+    }    
   };
 
   overlay.addEventListener('click', hideDetail);
@@ -38,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     img.addEventListener('click', () => {
       if (activeCard) hideDetail();
 
+      activeImage = img;
+      img.style.visibility = 'hidden';
+
       const rect = img.getBoundingClientRect();
       const card = document.createElement('div');
       card.className = 'detail-card';
@@ -51,8 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const front = document.createElement('div');
       front.className = 'front';
-      const clone = img.cloneNode(true);
-      front.appendChild(clone);
 
       const back = document.createElement('div');
       back.className = 'back';
