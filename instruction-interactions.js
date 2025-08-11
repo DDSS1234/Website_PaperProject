@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
       activeCard = card;
     });
   });
-  
   const checkboxes = document.querySelectorAll('.instruction-checkbox');
   checkboxes.forEach((box) => {
     box.addEventListener('click', () => {
