@@ -65,13 +65,13 @@
       <div class="step">
         <h1 class="step-title">2</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 2 icon" data-detail="Tear or shred paper into pieces about 1 in (2-3 cm) across. Smaller pieces blend faster and more evenly.">
+        <img class="instruction-image" src="images/step2.png" alt="Step 2 icon" data-detail="Tear or shred paper into pieces about 1 in (2-3 cm) across. Smaller pieces blend faster and more evenly.">
         <h4 class="step-description">Prepare</h4>
       </div>
       <div class="step">
         <h1 class="step-title">3</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 3 icon" data-detail="Place paper pieces into a blender with water (about 1 part paper to 4 parts water). Blend until the mixture looks like thick oatmeal — slightly clumpy is fine.">
+        <img class="instruction-image" src="images/step3.png" alt="Step 3 icon" data-detail="Place paper pieces into a blender with water (about 1 part paper to 4 parts water). Blend until the mixture looks like thick oatmeal — slightly clumpy is fine.">
         <h4 class="step-description">Blend</h4>
       </div>
       <div class="step">
@@ -83,19 +83,19 @@
       <div class="step">
         <h1 class="step-title">5</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 5 icon" data-detail="Lift the mould straight up out of the water. Tilt and gently shake it side-to-side to help water drain and distribute fibers evenly.">
+        <img class="instruction-image" src="images/step5.png" alt="Step 5 icon" data-detail="Lift the mould straight up out of the water. Tilt and gently shake it side-to-side to help water drain and distribute fibers evenly.">
         <h4 class="step-description">Pull</h4>
       </div>
       <div class="step">
         <h1 class="step-title">6</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 6 icon" data-detail="With the pulp still in the mould, place fine mesh or cloth over it. Press with a sponge or flat object to remove as much water as possible. This is a little different from paper sheet making because we want to retain our shape size.">
+        <img class="instruction-image" src="images/step6.png" alt="Step 6 icon" data-detail="With the pulp still in the mould, place fine mesh or cloth over it. Press with a sponge or flat object to remove as much water as possible. This is a little different from paper sheet making because we want to retain our shape size.">
         <h4 class="step-description">Press</h4>
       </div>
       <div class="step">
         <h1 class="step-title">7</h1>
         <div class="instruction-checkbox" role="checkbox" aria-checked="false" tabindex="0"></div>        
-        <img class="instruction-image" src="images/Place.png" alt="Step 7 icon" data-detail="Remove the frame sides carefully so the sheet stays intact. Transfer it onto a blotter sheet for support.">
+        <img class="instruction-image" src="images/step7.png" alt="Step 7 icon" data-detail="Remove the frame sides carefully so the sheet stays intact. Transfer it onto a blotter sheet for support.">
         <h4 class="step-description">Remove</h4>
       </div>
       <div class="step">
@@ -115,8 +115,16 @@
       </div>      
     </div>
   </main>
-<script src="instruction-interactions.js"></script>  
-<script>
+
+  <div id="endPanel" aria-hidden="true">
+    <div class="inner">
+      <h2>Questions?</h2>
+      <p>alexrosno@gmail.com<br><li><a href="https://www.instagram.com/ajrosno/?hl=en">Instagram</a></li></p>
+    </div>
+  </div>
+
+  <script src="instruction-interactions.js"></script>
+  <script>
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('siteMenu');
 
@@ -216,6 +224,7 @@
   const stepDescriptions = document.querySelectorAll('.step-description');
   const stepImages = document.querySelectorAll('.step img');
   const endHeading = document.querySelector('#endPanel h2');
+  const content = document.querySelector('main');  
   const translations = {
     en: {
       nav: { home: 'Home', about: 'About', instructions: 'Instructions' },
@@ -374,20 +383,24 @@
   };
 
   function swapLanguage(lang) {
-    const t = translations[lang];
-    document.documentElement.lang = lang;
-    document.documentElement.dir = t.dir || 'ltr';
-    navLinks[0].textContent = t.nav.home;
-    navLinks[1].textContent = t.nav.about;
-    navLinks[2].textContent = t.nav.instructions;
-    t.steps.forEach((step, i) => {
-      stepDescriptions[i].textContent = step.desc;
-      if (step.detail && stepImages[i]) {
-        stepImages[i].dataset.detail = step.detail;
-      }
-    });
-    endHeading.textContent = t.end;
-    localStorage.setItem('lang', lang);
+    content.classList.add('fade-out');
+    setTimeout(() => {
+      const t = translations[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = t.dir || 'ltr';
+      navLinks[0].textContent = t.nav.home;
+      navLinks[1].textContent = t.nav.about;
+      navLinks[2].textContent = t.nav.instructions;
+      t.steps.forEach((step, i) => {
+        stepDescriptions[i].textContent = step.desc;
+        if (step.detail && stepImages[i]) {
+          stepImages[i].dataset.detail = step.detail;
+        }
+      });
+      endHeading.textContent = t.end;
+      localStorage.setItem('lang', lang);
+      content.classList.remove('fade-out');
+    }, 300);
   }
 
   const savedLang2 = localStorage.getItem('lang') || 'en';
