@@ -21,6 +21,22 @@
         <path class="l2" d="M3 14h16" />
       </svg>
     </button>
+    <div class="controls">
+      <div class="lang-selector" id="langBox">
+        <button id="langToggle" class="dropdown-toggle">EN</button>
+        <ul id="langDropdown" class="lang-dropdown">
+          <li data-lang="en">EN</li>
+          <li data-lang="es">ES</li>
+          <li data-lang="fr">FR</li>
+          <li data-lang="de">DE</li>
+          <li data-lang="ru">RU</li>
+          <li data-lang="zh">ZH</li>
+          <li data-lang="ja">JA</li>
+          <li data-lang="it">IT</li>
+          <li data-lang="ar">AR</li>
+        </ul>
+      </div>
+    </div>    
   </header>
 
   <nav id="siteMenu" class="menu" hidden>
@@ -184,6 +200,204 @@
   });
   updateStepHeight();
   updateProgress();
+
+  const toggle = document.getElementById('langToggle');
+  const dropdown = document.getElementById('langDropdown');
+  const navLinks = document.querySelectorAll('#siteMenu a');
+  const stepDescriptions = document.querySelectorAll('.step-description');
+  const stepImages = document.querySelectorAll('.step img');
+  const endHeading = document.querySelector('#endPanel h2');
+  const translations = {
+    en: {
+      nav: { home: 'Home', about: 'About', instructions: 'Instructions' },
+      end: 'Questions?',
+      steps: [
+        { desc: 'Start' },
+        { desc: 'Gather', detail: `Collect all necessary materials: paper scraps, blender, mould & deckle, sponge, fine mesh, blotter sheets, absorbent layers (e.g., towels or felt), water container, some sunlight or a drying rack. Extra buckets, a shredder, and a wet vacuum can help speed up the process.` },
+        { desc: 'Prepare', detail: `Tear or shred paper into pieces about 1 in (2-3 cm) across. Smaller pieces blend faster and more evenly.` },
+        { desc: 'Blend', detail: `Place paper pieces into a blender with water (about 1 part paper to 4 parts water). Blend until the mixture looks like thick oatmeal — slightly clumpy is fine.` },
+        { desc: 'Pour', detail: `Submerge the mould and deckle in water. Pour pulp into the mould evenly, avoiding overflow. Use fingers to gently stir the pulp, keeping them above the mesh to prevent clumps.` },
+        { desc: 'Pull', detail: `Lift the mould straight up out of the water. Tilt and gently shake it side-to-side to help water drain and distribute fibers evenly.` },
+        { desc: 'Press', detail: `With the pulp still in the mould, place fine mesh or cloth over it. Press with a sponge or flat object to remove as much water as possible. This is a little different from paper sheet making because we want to retain our shape size.` },
+        { desc: 'Remove', detail: `Remove the frame sides carefully so the sheet stays intact. Transfer it onto a blotter sheet for support.` },
+        { desc: 'Dry', detail: `Place the sheet between absorbent layers. Keep well-ventilated and in sunlight if possible. Apply light pressure to prevent warping. Drying time is about 1 inch (2-3cm) of thickness per week.` },
+        { desc: 'Build', detail: `Repeat to create multiple sheets or modules. Stack or join them for furniture, wall panels, or other projects.` },
+        { desc: 'Questions?' }
+      ]
+    },
+    es: {
+      nav: { home: 'Inicio', about: 'Acerca', instructions: 'Instrucciones' },
+      end: '¿Preguntas?',
+      steps: [
+        { desc: 'Inicio' },
+        { desc: 'Reunir', detail: `Reúne todos los materiales necesarios: trozos de papel, licuadora, molde y bastidor, esponja, malla fina, hojas secantes, capas absorbentes (p. ej., toallas o fieltro), recipiente para agua, algo de sol o un tendedero. Cubetas adicionales, una trituradora y una aspiradora húmeda pueden ayudar a acelerar el proceso.` },
+        { desc: 'Preparar', detail: `Rompe o tritura el papel en pedazos de aproximadamente 2-3 cm. Los trozos más pequeños se licúan más rápido y de manera más uniforme.` },
+        { desc: 'Mezclar', detail: `Coloca los trozos de papel en una licuadora con agua (aprox. 1 parte de papel por 4 de agua). Licúa hasta que la mezcla tenga la consistencia de avena espesa; no importa si quedan algunos grumos.` },
+        { desc: 'Verter', detail: `Sumerge el molde y el bastidor en agua. Vierte la pulpa en el molde de manera uniforme, evitando que se desborde. Usa los dedos para remover suavemente la pulpa, manteniéndolos por encima de la malla para evitar grumos.` },
+        { desc: 'Sacar', detail: `Levanta el molde recto fuera del agua. Inclínalo y sacúdelo suavemente de lado a lado para ayudar a drenar el agua y distribuir las fibras de manera uniforme.` },
+        { desc: 'Prensar', detail: `Con la pulpa aún en el molde, coloca una malla fina o un paño encima. Presiona con una esponja u objeto plano para extraer la mayor cantidad de agua posible. Esto es un poco diferente a hacer hojas de papel porque queremos mantener el tamaño de la forma.` },
+        { desc: 'Retirar', detail: `Retira cuidadosamente los lados del marco para que la hoja permanezca intacta. Trasládala a una hoja secante para darle soporte.` },
+        { desc: 'Secar', detail: `Coloca la hoja entre capas absorbentes. Manténla bien ventilada y al sol si es posible. Aplica una ligera presión para evitar que se deforme. El tiempo de secado es de aproximadamente 2-3 cm de grosor por semana.` },
+        { desc: 'Construir', detail: `Repite para crear varias hojas o módulos. Apílalos o únelos para construir muebles, paneles de pared u otros proyectos.` },
+        { desc: '¿Preguntas?' }
+      ]
+    },
+    fr: {
+      nav: { home: 'Accueil', about: 'À propos', instructions: 'Instructions' },
+      end: 'Des questions ?',
+      steps: [
+        { desc: 'Démarrer' },
+        { desc: 'Rassembler', detail: `Rassemblez tout le matériel nécessaire : chutes de papier, mixeur, moule et cadre, éponge, fine maille, feuilles buvard, couches absorbantes (p. ex. serviettes ou feutre), récipient d'eau, un peu de soleil ou un séchoir. Des seaux supplémentaires, un broyeur et un aspirateur humide peuvent accélérer le processus.` },
+        { desc: 'Préparer', detail: `Déchirez ou coupez le papier en morceaux d'environ 2‑3 cm. Les petits morceaux se mixent plus vite et plus uniformément.` },
+        { desc: 'Mixer', detail: `Placez les morceaux de papier dans un mixeur avec de l'eau (environ 1 part de papier pour 4 parts d'eau). Mixez jusqu'à obtenir la consistance d'un gruau épais ; quelques grumeaux sont acceptables.` },
+        { desc: 'Verser', detail: `Plongez le moule et le cadre dans l'eau. Versez la pâte dans le moule de manière uniforme sans déborder. Utilisez les doigts pour remuer doucement la pâte en restant au-dessus de la maille afin d'éviter les amas.` },
+        { desc: 'Retirer', detail: `Soulevez le moule droit hors de l'eau. Inclinez-le et secouez-le doucement de gauche à droite pour aider l'eau à s'égoutter et répartir les fibres.` },
+        { desc: 'Presser', detail: `Avec la pâte encore dans le moule, placez une fine maille ou un tissu par-dessus. Pressez avec une éponge ou un objet plat pour retirer autant d'eau que possible. C'est un peu différent de la fabrication de feuilles car nous voulons conserver la forme.` },
+        { desc: 'Démouler', detail: `Retirez délicatement les côtés du cadre pour que la feuille reste intacte. Transférez-la sur une feuille buvard pour la soutenir.` },
+        { desc: 'Sécher', detail: `Placez la feuille entre des couches absorbantes. Gardez-la bien ventilée et au soleil si possible. Appliquez une légère pression pour éviter les déformations. Le temps de séchage est d'environ 2‑3 cm d'épaisseur par semaine.` },
+        { desc: 'Construire', detail: `Répétez pour créer plusieurs feuilles ou modules. Empilez-les ou assemblez-les pour fabriquer des meubles, des panneaux muraux ou d'autres projets.` },
+        { desc: 'Des questions ?' }
+      ]
+    },
+    de: {
+      nav: { home: 'Startseite', about: 'Über', instructions: 'Anleitungen' },
+      end: 'Fragen?',
+      steps: [
+        { desc: 'Start' },
+        { desc: 'Sammeln', detail: `Alle notwendigen Materialien zusammentragen: Papierschnipsel, Mixer, Schöpfrahmen, Schwamm, feines Netz, Löschpapier, saugfähige Lagen (z. B. Handtücher oder Filz), Wasserbehälter, etwas Sonnenlicht oder ein Trockenständer. Zusätzliche Eimer, ein Schredder und ein Nasssauger können den Prozess beschleunigen.` },
+        { desc: 'Vorbereiten', detail: `Papier in Stücke von etwa 2–3 cm reißen oder schneiden. Kleinere Stücke lassen sich schneller und gleichmäßiger mixen.` },
+        { desc: 'Mixen', detail: `Papierstücke mit Wasser (etwa 1 Teil Papier zu 4 Teilen Wasser) in den Mixer geben. Mixen, bis die Mischung wie dicker Haferbrei aussieht – leichte Klumpen sind in Ordnung.` },
+        { desc: 'Gießen', detail: `Schöpfrahmen ins Wasser tauchen. Die Pulpe gleichmäßig in den Rahmen gießen, ohne überzulaufen. Mit den Fingern die Pulpe sanft rühren, dabei über dem Netz bleiben, um Klumpen zu vermeiden.` },
+        { desc: 'Heben', detail: `Den Rahmen gerade aus dem Wasser heben. Leicht zur Seite neigen und schütteln, damit das Wasser abläuft und die Fasern sich gleichmäßig verteilen.` },
+        { desc: 'Pressen', detail: `Mit der Pulpe noch im Rahmen ein feines Netz oder Tuch darüberlegen. Mit einem Schwamm oder flachen Gegenstand drücken, um möglichst viel Wasser zu entfernen. Das unterscheidet sich etwas vom Blattpapierherstellen, da wir die Formgröße beibehalten wollen.` },
+        { desc: 'Entfernen', detail: `Die Rahmenseiten vorsichtig entfernen, damit das Blatt intakt bleibt. Auf ein Löschblatt legen, um es zu stützen.` },
+        { desc: 'Trocknen', detail: `Das Blatt zwischen saugfähige Lagen legen. Gut belüftet und möglichst in der Sonne trocknen lassen. Leichten Druck ausüben, um Verformungen zu verhindern. Die Trocknungszeit beträgt etwa 2–3 cm Dicke pro Woche.` },
+        { desc: 'Bauen', detail: `Wiederholen, um mehrere Blätter oder Module zu erzeugen. Stapeln oder verbinden Sie sie für Möbel, Wandpaneele oder andere Projekte.` },
+        { desc: 'Fragen?' }
+      ]
+    },
+    ru: {
+      nav: { home: 'Главная', about: 'О проекте', instructions: 'Инструкции' },
+      end: 'Вопросы?',
+      steps: [
+        { desc: 'Начало' },
+        { desc: 'Собрать', detail: `Соберите все необходимые материалы: обрезки бумаги, блендер, раму с сеткой, губку, мелкую сетку, промокательные листы, впитывающие слои (например, полотенца или фетр), ёмкость с водой, немного солнца или сушилку. Дополнительные вёдра, шредер и водный пылесос помогут ускорить процесс.` },
+        { desc: 'Подготовить', detail: `Разорвите или измельчите бумагу на кусочки примерно 2–3 см. Мелкие кусочки смешиваются быстрее и равномернее.` },
+        { desc: 'Смешать', detail: `Поместите кусочки бумаги в блендер с водой (примерно 1 часть бумаги на 4 части воды). Смешивайте, пока смесь не станет похожей на густую овсянку — небольшие комочки допустимы.` },
+        { desc: 'Залить', detail: `Погрузите раму в воду. Равномерно вылейте пульпу в форму, избегая перелива. Используйте пальцы, чтобы аккуратно перемешать пульпу, удерживая их над сеткой, чтобы не образовывались комки.` },
+        { desc: 'Поднять', detail: `Поднимите раму прямо из воды. Наклоните и слегка покачайте из стороны в сторону, чтобы вода стекла и волокна распределились равномерно.` },
+        { desc: 'Отжать', detail: `Не вынимая пульпу из формы, накройте её мелкой сеткой или тканью. Нажмите губкой или плоским предметом, чтобы удалить как можно больше воды. Это немного отличается от изготовления листов, потому что нам нужно сохранить размер формы.` },
+        { desc: 'Снять', detail: `Осторожно снимите боковые части рамы, чтобы лист остался целым. Перенесите его на промокательную бумагу для поддержки.` },
+        { desc: 'Высушить', detail: `Поместите лист между впитывающими слоями. Держите в хорошо проветриваемом и, по возможности, солнечном месте. Лёгкое давление помогает избежать деформации. Время сушки — около 2–3 см толщины в неделю.` },
+        { desc: 'Собрать', detail: `Повторяйте, чтобы создать несколько листов или модулей. Складывайте или соединяйте их для мебели, настенных панелей или других проектов.` },
+        { desc: 'Вопросы?' }
+      ]
+    },
+    zh: {
+      nav: { home: '主页', about: '关于', instructions: '说明' },
+      end: '有问题吗？',
+      steps: [
+        { desc: '开始' },
+        { desc: '收集', detail: `收集所有必要的材料：纸碎、搅拌机、抄纸框和网、海绵、细网、吸水纸、吸水层（如毛巾或毡）、装水容器、阳光或晾干架。额外的水桶、碎纸机和湿式真空吸尘器可以加快过程。` },
+        { desc: '准备', detail: `将纸撕或切成约 2–3 厘米大小的碎片。较小的碎片更容易快速且均匀地搅拌。` },
+        { desc: '搅拌', detail: `把纸碎放入搅拌机中，加水（约 1 份纸配 4 份水）。搅拌至混合物呈浓稠的燕麦粥状，稍有颗粒也没关系。` },
+        { desc: '倒入', detail: `将抄纸框和网浸入水中。把纸浆均匀倒入框内，避免溢出。用手指轻轻搅动纸浆，手保持在网面上方以防结块。` },
+        { desc: '提起', detail: `将框从水中垂直提起。轻轻左右摇动，帮助排水并均匀分布纤维。` },
+        { desc: '压制', detail: `纸浆仍在框中时，在其上覆盖细网或布。用海绵或平物压压，尽可能挤出水分。这与造纸略有不同，因为我们需要保持形状大小。` },
+        { desc: '移除', detail: `小心移除框的侧边，使纸张保持完整。将其转移到吸水纸上以提供支撑。` },
+        { desc: '晾干', detail: `将纸张夹在吸水层之间。如有可能，保持通风并置于阳光下。施加轻微压力以防翘曲。干燥时间约为每周 2–3 厘米厚度。` },
+        { desc: '构建', detail: `重复操作以制作多张纸或模块。将它们堆叠或连接，用于家具、墙板或其他项目。` },
+        { desc: '有问题吗？' }
+      ]
+    },
+    ja: {
+      nav: { home: 'ホーム', about: '概要', instructions: '手順' },
+      end: '質問は？',
+      steps: [
+        { desc: 'スタート' },
+        { desc: '集める', detail: `必要な材料をすべて集めます：紙片、ブレンダー、簀桁（すげた）、スポンジ、細かい網、吸い取り紙、吸水性のある層（タオルやフェルトなど）、水を入れる容器、日光または乾燥ラック。追加のバケツ、シュレッダー、ウェットバキュームがあると工程が早く進みます。` },
+        { desc: '準備する', detail: `紙を2～3cm程度の大きさに裂くか細かくします。小さいほど早く均一にブレンドできます。` },
+        { desc: 'ブレンドする', detail: `紙片を水（紙1：水4の割合）と共にブレンダーに入れます。濃いオートミール状になるまでブレンドします。少しダマが残っても構いません。` },
+        { desc: '注ぐ', detail: `簀桁を水に沈めます。紙パルプを均一に流し込み、あふれないようにします。指でやさしくかき混ぜ、網の上で行い塊を防ぎます。` },
+        { desc: '引き上げる', detail: `簀桁をまっすぐ持ち上げます。左右に軽く傾けて揺らし、水を切りながら繊維を均一にします。` },
+        { desc: '押す', detail: `パルプが簀桁にある状態で、細かい網や布を上にのせます。スポンジや平らな物で押し、できるだけ水分を取り除きます。形の大きさを保ちたいので、紙作りとは少し異なります。` },
+        { desc: '外す', detail: `枠の側面を慎重に外し、シートが崩れないようにします。支持のため吸い取り紙に移します。` },
+        { desc: '乾燥させる', detail: `シートを吸水性のある層の間に挟みます。できれば風通しの良い場所や日光の下で乾燥させます。軽く重しをして反りを防ぎます。乾燥時間は厚さ2～3cmにつき約1週間です。` },
+        { desc: '組み立てる', detail: `繰り返して複数のシートやモジュールを作ります。積み重ねたり結合したりして、家具や壁パネルなどのプロジェクトに使います。` },
+        { desc: '質問は？' }
+      ]
+    },
+    it: {
+      nav: { home: 'Home', about: 'Informazioni', instructions: 'Istruzioni' },
+      end: 'Domande?',
+      steps: [
+        { desc: 'Inizio' },
+        { desc: 'Raccogli', detail: `Raccogli tutti i materiali necessari: ritagli di carta, frullatore, telaio e setaccio, spugna, rete fine, fogli assorbenti, strati assorbenti (es. asciugamani o feltro), contenitore d'acqua, un po' di sole o uno stendino. Secchi extra, un trituratore e un aspirapolvere ad acqua possono velocizzare il processo.` },
+        { desc: 'Prepara', detail: `Strappa o taglia la carta in pezzi di circa 2-3 cm. I pezzi più piccoli si frullano più velocemente e in modo uniforme.` },
+        { desc: 'Frulla', detail: `Metti i pezzi di carta nel frullatore con acqua (circa 1 parte di carta e 4 parti d'acqua). Frulla finché il composto non assomiglia a una pappa d'avena densa; qualche grumo va bene.` },
+        { desc: 'Versa', detail: `Immergi il telaio nell'acqua. Versa la polpa nel telaio in modo uniforme, evitando che trabocchi. Usa le dita per mescolare delicatamente la polpa, mantenendole sopra la rete per evitare grumi.` },
+        { desc: 'Sollevare', detail: `Sollevare il telaio verticalmente fuori dall'acqua. Inclinalo e scuotilo leggermente da un lato all'altro per far scolare l'acqua e distribuire uniformemente le fibre.` },
+        { desc: 'Premi', detail: `Con la polpa ancora nel telaio, appoggia sopra una rete fine o un panno. Premi con una spugna o con un oggetto piatto per rimuovere quanta più acqua possibile. È un po' diverso dalla fabbricazione di fogli perché vogliamo mantenere la dimensione della forma.` },
+        { desc: 'Rimuovi', detail: `Rimuovi con cura i lati del telaio in modo che il foglio rimanga integro. Trasferiscilo su un foglio assorbente per sostegno.` },
+        { desc: 'Asciuga', detail: `Metti il foglio tra strati assorbenti. Mantienilo ben ventilato e, se possibile, al sole. Applica una leggera pressione per evitare deformazioni. Il tempo di asciugatura è di circa 2-3 cm di spessore per settimana.` },
+        { desc: 'Costruisci', detail: `Ripeti per creare più fogli o moduli. Impilali o uniscili per mobili, pannelli murali o altri progetti.` },
+        { desc: 'Domande?' }
+      ]
+    },
+    ar: {
+      dir: 'rtl',
+      nav: { home: 'الرئيسية', about: 'حول', instructions: 'التعليمات' },
+      end: 'أسئلة؟',
+      steps: [
+        { desc: 'ابدأ' },
+        { desc: 'اجمع', detail: `اجمع كل المواد اللازمة: قصاصات الورق، الخلاط، القالب والإطار، الإسفنج، شبكة دقيقة، أوراق ماصة، طبقات ماصة (مثل المناشف أو اللباد)، وعاء ماء، بعض أشعة الشمس أو رف تجفيف. يمكن أن تساعد الدلاء الإضافية، آلة التمزيق، والمكنسة المائية في تسريع العملية.` },
+        { desc: 'حضّر', detail: `قم بتمزيق أو تقطيع الورق إلى قطع بحجم 2–3 سم تقريباً. كلما كانت القطع أصغر امتزجت بسرعة وبشكل متساوٍ.` },
+        { desc: 'اخلط', detail: `ضع قطع الورق في الخلاط مع الماء (نحو جزء واحد من الورق إلى أربعة أجزاء من الماء). امزج حتى يصبح القوام مثل دقيق الشوفان الكثيف؛ لا بأس بوجود بعض الكتل.` },
+        { desc: 'اسكب', detail: `اغمر القالب والإطار في الماء. اسكب اللب في القالب بالتساوي مع تجنب الفائض. حرّك اللب بلطف بأصابعك مع إبقائها فوق الشبكة لمنع التكتلات.` },
+        { desc: 'ارفع', detail: `ارفع القالب عمودياً من الماء. أملْهُ وحرّكه برفق من جانب إلى آخر لمساعدة الماء على التصريف وتوزيع الألياف بالتساوي.` },
+        { desc: 'اضغط', detail: `مع بقاء اللب في القالب، ضع شبكة دقيقة أو قطعة قماش فوقه. اضغط بإسفنجة أو جسم مسطح لإزالة أكبر قدر ممكن من الماء. هذا يختلف قليلاً عن صناعة الأوراق لأننا نريد الحفاظ على حجم الشكل.` },
+        { desc: 'أزل', detail: `أزل جوانب الإطار بعناية ليبقى الورق سليماً. انقله إلى ورقة ماصة للدعم.` },
+        { desc: 'جفف', detail: `ضع الورقة بين طبقات ماصة. اجعلها في مكان جيد التهوية وتحت الشمس إن أمكن. طبّق ضغطاً خفيفاً لمنع الالتواء. وقت التجفيف حوالي 2–3 سم من السماكة في الأسبوع.` },
+        { desc: 'ابنِ', detail: `كرر العملية لإنشاء عدة أوراق أو وحدات. قم بتكديسها أو وصلها لصنع الأثاث أو الألواح الجدارية أو مشاريع أخرى.` },
+        { desc: 'أسئلة؟' }
+      ]
+    }
+  };
+
+  function swapLanguage(lang) {
+    const t = translations[lang];
+    document.documentElement.lang = lang;
+    document.documentElement.dir = t.dir || 'ltr';
+    navLinks[0].textContent = t.nav.home;
+    navLinks[1].textContent = t.nav.about;
+    navLinks[2].textContent = t.nav.instructions;
+    t.steps.forEach((step, i) => {
+      stepDescriptions[i].textContent = step.desc;
+      if (step.detail && stepImages[i]) {
+        stepImages[i].dataset.detail = step.detail;
+      }
+    });
+    endHeading.textContent = t.end;
+    localStorage.setItem('lang', lang);
+  }
+
+  const savedLang2 = localStorage.getItem('lang') || 'en';
+  swapLanguage(savedLang2);
+  toggle.textContent = savedLang2.toUpperCase() + ' ▾';
+
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  dropdown.querySelectorAll('li').forEach(li => li.addEventListener('click', () => {
+    const lang = li.dataset.lang;
+    toggle.textContent = lang.toUpperCase() + ' ▾';
+    dropdown.classList.remove('open');
+    swapLanguage(lang);
+  }));
+
+  document.addEventListener('click', () => dropdown.classList.remove('open'));  
 </script>
 
 <div id="endPanel" aria-hidden="true">
