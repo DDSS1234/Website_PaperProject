@@ -6,12 +6,10 @@
   <title>Creating with Paper – Instructions</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      document.documentElement.lang = savedLang;
-      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-    }
-  </script>  
+    const savedLang = localStorage.getItem('lang') || 'en';
+    document.documentElement.lang = savedLang;
+    document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+  </script>
 </head>
 <body>
   <header>
@@ -403,9 +401,8 @@
     }, 300);
   }
 
-  const savedLang2 = localStorage.getItem('lang') || 'en';
-  swapLanguage(savedLang2);
-  toggle.textContent = savedLang2.toUpperCase() + ' ▾';
+  swapLanguage(savedLang);
+  toggle.textContent = savedLang.toUpperCase() + ' ▾';
 
   toggle.addEventListener('click', e => {
     e.stopPropagation();

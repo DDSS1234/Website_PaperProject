@@ -6,11 +6,9 @@
    <title>Creating with Paper</title>
   <link rel="stylesheet" href="style.css">
   <script>
-    const savedLang = localStorage.getItem('lang');
-    if (savedLang) {
-      document.documentElement.lang = savedLang;
-      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-    }
+    const savedLang = localStorage.getItem('lang') || 'en';
+    document.documentElement.lang = savedLang;
+    document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
   </script>
  </head>
  <body>
@@ -156,9 +154,8 @@
          content.classList.remove('fade-out');
        }, 300);
      }
-     const savedLang = localStorage.getItem('lang') || 'en';
-     toggle.textContent = savedLang.toUpperCase() + ' ▾';
-     swapLanguage(savedLang);
+    toggle.textContent = savedLang.toUpperCase() + ' ▾';
+    swapLanguage(savedLang);
 
      toggle.addEventListener('click', e => {
        e.stopPropagation();
