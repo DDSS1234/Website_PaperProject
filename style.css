@@ -324,6 +324,11 @@ main.instructions-main {
       .step:nth-child(odd) {
         scroll-snap-align: start;
       }
+      .step:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: min(720px, 100%);
+      } 
     }
 
 /* Progress bar */

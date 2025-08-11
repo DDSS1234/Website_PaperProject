@@ -29,7 +29,7 @@
   <main class="instructions-main">
     <div class="instructions-container">
       <div class="step">
-        <h2 class="step-title">Placeholder</h2>
+        <h1 class="step-title">Module</h1>
         <img class="instruction-image" src="images/Place.png" alt="Step 1 icon">
         <h4 class="step-description">Start</h4>
       </div>
@@ -78,6 +78,9 @@
         <img class="instruction-image" src="images/Place.png" alt="Step 9 icon">
         <h4 class="step-description">Build</h4>
       </div>
+      <div class="step">
+        <h4 class="step-description">Questions?</h4>
+      </div>      
     </div>
   </main>
 <script>
@@ -114,22 +117,25 @@
   
   const container = document.querySelector('.instructions-container');
   const progressBar = document.querySelector('.progress-bar');
-  const steps = document.querySelectorAll('.step');
   let isWheelScrolling = false;
-  let stepHeight = steps[0].offsetHeight;
+  let stepHeight = container.clientHeight;
 
   function updateStepHeight() {
-    stepHeight = steps[0].offsetHeight;
+    stepHeight = container.clientHeight;
   }
 
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
     if (isWheelScrolling) return;
     isWheelScrolling = true;
-    const direction = Math.sign(e.deltaY);
-    const nextIndex = Math.round(container.scrollTop / stepHeight) + direction;
-    const targetIndex = Math.max(0, Math.min(nextIndex, steps.length - 1));
-    container.scrollTo({ top: targetIndex * stepHeight, behavior: 'smooth' });
+
+    const dir = Math.sign(e.deltaY) || 1;
+    const max = container.scrollHeight - container.clientHeight;
+    const nextTop = Math.max(0, Math.min(container.scrollTop + dir * stepHeight, max));
+
+    container.scrollTo({ top: nextTop, behavior: 'smooth' });
+
+    // allow another tick after the smooth scroll settles
     setTimeout(() => { isWheelScrolling = false; }, 500);
   }, { passive: false });
 
