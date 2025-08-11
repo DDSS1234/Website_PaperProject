@@ -6,6 +6,7 @@
   --overlay-bg: #2a2a2a;
   --ease: cubic-bezier(.2,.8,.2,1);
   --header-height: 0px;
+  --end-buffer: clamp(48px, 8vmin, 120px);
 }
 
 /* Inner panel frame */
@@ -259,6 +260,7 @@ main.instructions-main {
     column-gap: 0;                  /* mobile: no column gap */
     overflow-y: auto;               /* the only scroller */
     scroll-snap-type: y mandatory;
+    scroll-padding-bottom: var(--end-buffer);    
     scrollbar-width: none;          /* hide inner scrollbar */
   }
 .instructions-container::-webkit-scrollbar { display: none; }
@@ -271,11 +273,15 @@ main.instructions-main {
       justify-content: center;
       text-align: center;
       scroll-snap-align: start;
-      height: 100%;    
+      height: 100%;
       margin: 0;                     /* remove external margins */
       padding: 25px;
       gap: 1rem;
       border-radius: 8px;
+    }
+
+    .step:last-child {
+      margin-bottom: var(--end-buffer);
     }
 
     .step::before {

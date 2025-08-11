@@ -30,63 +30,53 @@
     <div class="instructions-container">
       <div class="step">
         <h2 class="step-title">Placeholder</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 1 icon">
-        <p class="step-description">Description for step one.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 1 icon">
+        <h4 class="step-description">Start</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 1</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 1 icon">
-        <p class="step-description">Description for step one.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 1 icon">
+        <h4 class="step-description">Gather</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 2</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 2 icon">
-        <p class="step-description">Description for step two.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 2 icon">
+        <h4 class="step-description">Prepare</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 3</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 3 icon">
-        <p class="step-description">Description for step three.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 3 icon">
+        <h4 class="step-description">Blend</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 4</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 4 icon">
-        <p class="step-description">Description for step four.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 4 icon">
+        <h4 class="step-description">Pour</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 5</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 5 icon">
-        <p class="step-description">Description for step five.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 5 icon">
+        <h4 class="step-description">Pull</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 6</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 6 icon">
-        <p class="step-description">Description for step six.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 6 icon">
+        <h4 class="step-description">Press</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 7</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 7 icon">
-        <p class="step-description">Description for step seven.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 7 icon">
+        <h4 class="step-description">Remove</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 8</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 8 icon">
-        <p class="step-description">Description for step eight.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 8 icon">
+        <h4 class="step-description">Dry</h4>
       </div>
       <div class="step">
         <h2 class="step-title">Step 9</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 9 icon">
-        <p class="step-description">Description for step nine.</p>
-      </div>
-      <div class="step">
-        <h2 class="step-title">Step 10</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 10 icon">
-        <p class="step-description">Description for step ten.</p>
-      </div>
-      <div class="step">
-        <h2 class="step-title">Step 11</h2>
-        <img class="instruction-image" src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 11 icon">
-        <p class="step-description">Description for step eleven.</p>
+        <img class="instruction-image" src="images/Place.png" alt="Step 9 icon">
+        <h4 class="step-description">Build</h4>
       </div>
     </div>
   </main>
@@ -144,7 +134,7 @@
   }, { passive: false });
 
   function updateProgress() {
-    const max = stepHeight * (steps.length - 1);
+    const max = container.scrollHeight - container.clientHeight;
     const percent = max ? container.scrollTop / max : 0;
     // On screens wider than 768px, the progress bar fills vertically (height changes, width is 100%)
     if (window.matchMedia('(min-width: 768px)').matches) {
