@@ -72,6 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
       activeCard = card;
     });
   });
+  
+  const checkboxes = document.querySelectorAll('.instruction-checkbox');
+  checkboxes.forEach((box) => {
+    box.addEventListener('click', () => {
+      const checked = box.classList.toggle('checked');
+      box.setAttribute('aria-checked', checked ? 'true' : 'false');
+    });
+    box.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        box.click();
+      }
+    });
+  });
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') hideDetail();

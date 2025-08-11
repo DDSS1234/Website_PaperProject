@@ -298,7 +298,39 @@ main.instructions-main {
       top:  calc(var(--panel-offset) + 20px);  /* move down */
       left: calc(var(--panel-offset) + 25px);  /* move inward */
       margin: 0;
-      color: rgba(42,42,42,0.5);    
+  color: rgba(42,42,42,0.5);
+    }
+
+    .instruction-checkbox {
+      position: absolute;
+      bottom:  calc(var(--panel-offset) + 20px);  /* move down */
+      right: calc(var(--panel-offset) + 25px);  /* move inward */
+      width: 25px;
+      height: 25px;
+      border: 1px solid rgba(42,42,42,0.5);
+      cursor: pointer;
+    }
+    .instruction-checkbox::before,
+    .instruction-checkbox::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 2px;
+      background: rgba(42,42,42,0.5);
+      transform-origin: center;
+      opacity: 0;
+    }
+    .instruction-checkbox::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .instruction-checkbox::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    .instruction-checkbox.checked::before,
+    .instruction-checkbox.checked::after {
+      opacity: 1; 
     }
 
     .step img {
