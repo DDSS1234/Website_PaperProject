@@ -493,3 +493,30 @@ main.instructions-main {
 #endPanel .inner{ padding: 24px; font-size: clamp(18px,3.5vmin,28px); line-height: 1.4; }
 #endPanel h2{ margin: 0 0 .5rem; font-weight: 700; }
 body.show-end #endPanel{ transform: translateY(0%); }  /* slide up when class is on body */
+
+/* make content inside endPanel clickable */
+#endPanel .inner {
+  pointer-events: auto;
+}
+
+/* round icon button */
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: 1.5px solid #eeeeee;
+  color: #eeeeee;
+  text-decoration: none;
+  transition: background .2s, color .2s, transform .1s;
+}
+
+.icon-btn:hover {
+  background: #eeeeee;
+  color: #2a2a2a;
+}
+
+.icon-btn:active {
+  transform: scale(0.98);
+}
