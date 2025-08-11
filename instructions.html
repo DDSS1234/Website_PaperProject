@@ -7,27 +7,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+  <header>
     <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu" class="menu-btn">
       <svg viewBox="0 0 24 24" width="28" height="28" class="burger">
         <path class="l1" d="M3 10h16" />
         <path class="l2" d="M3 14h16" />
       </svg>
     </button>
-      <div class="controls">
-        <div class="lang-selector" id="langBox">
-         <button id="langToggle" class="dropdown-toggle">EN</button>
-         <ul id="langDropdown" class="lang-dropdown">
-          <li data-lang="en">EN</li>
-          <li data-lang="es">ES</li>
-          <li data-lang="fr">FR</li>
-          <li data-lang="de">DE</li>
-          <li data-lang="ru">RU</li>
-          <li data-lang="zh">ZH</li>
-          <li data-lang="ja">JA</li>
-        </ul>
-      </div>
-    </div>
   </header>
 
   <nav id="siteMenu" class="menu" hidden>
@@ -102,9 +88,8 @@
         <img src="51b50a77-d467-4ae9-8c3f-4f2fb050035a.png" alt="Step 11 icon">
         <p class="step-description">Description for step eleven.</p>
       </div>
-  </div>
+    </div>
   </main>
-<script src="instruction-interactions.js"></script>
 <script>
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('siteMenu');

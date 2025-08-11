@@ -5,10 +5,12 @@
       --stroke: #cccccc;
       --overlay-bg: #2a2a2a;
       --ease: cubic-bezier(.2,.8,.2,1);
+      --header-height: 0px;      
     }
         /* Base reset */
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { margin: 0; overflow: hidden; }  /* only the container will scroll */
 
     #molecule-container {
       position: fixed;
@@ -235,22 +237,24 @@ main.instructions-main {
   padding: 0;
   justify-content: flex-start;
   align-items: stretch;
-  height: 100dvh;
+  height: 100dvh; /* no subtraction needed since header isn't fixed */
 }
 
-    .instructions-container {
-        height: 100dvh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-auto-rows: 100dvh;
-        scroll-behavior: smooth;
-      }
-
-    .instructions-container::-webkit-scrollbar { display: none; }
+/* Instructions grid */
+  .instructions-container {
+    --pv: 48px;                     /* vertical padding you want around each card */
+    height: 100dvh;
+    padding: var(--pv) 16px;        /* safe outer space */
+    display: grid;
+    grid-template-columns: 1fr;     /* 1 column on mobile */
+    grid-auto-rows: calc(100dvh - (var(--pv) * 2)); /* row = viewport minus padding */
+    row-gap: 0;                     /* don't let next step peek */
+    column-gap: 0;                  /* mobile: no column gap */
+    overflow-y: auto;               /* the only scroller */
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;          /* hide inner scrollbar */
+  }
+.instructions-container::-webkit-scrollbar { display: none; }
 
     .step {
       position: relative;
@@ -260,17 +264,13 @@ main.instructions-main {
       justify-content: center;
       text-align: center;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
-      height: calc(100dvh - 50px);
-      margin-top: 50;
-      margin-bottom: 50px;
-      margin-left: 50px;
-      margin-right: 50px;
+      height: 100%;                  /* was calc(100dvh - 50px) */
+      margin: 0;                     /* remove external margins */
       padding: 25px;
       gap: 1rem;
       border: 2px solid rgba(42,42,42,0.5);
-      border-radius: 8px;
-      }
+     border-radius: 8px;
+    }
 
     .step-title {
       position: absolute;
@@ -292,9 +292,11 @@ main.instructions-main {
       max-width: 80%;
     }
 
-      @media (min-width: 768px) {
-        .instructions-container {
-          grid-template-columns: repeat(2, 1fr);
+        @media (min-width: 900px) {
+          .instructions-container {
+           grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 40px;             /* gap returns between Placeholder and Step 1 */
+          }
         }
         .step {
           scroll-snap-align: unset;
